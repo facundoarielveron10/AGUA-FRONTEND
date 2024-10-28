@@ -1,0 +1,19 @@
+---
+// AUTH
+import { isLoggedIn } from '../utils/verifyAuth';
+
+// COMPONENTS
+import Layout from '../layouts/Layout.astro';
+import LayoutAuth from "../layouts/LayoutAuth.jsx";
+
+// REDIRECT
+const isAuth = Astro.cookies.get("AUTH_TOKEN");
+if (!isLoggedIn(isAuth)) {
+	return Astro.redirect("/login")
+}
+---
+<Layout title="Inicio - ADS2">
+	<LayoutAuth client:only="react" action="">
+		{}
+	</LayoutAuth>
+</Layout>

@@ -1,0 +1,42 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+
+interface Props {
+	title: string;
+	container?: boolean;
+}
+
+const { title, container = true } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<!-- META DATA -->
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<!-- ICON -->
+		<link rel="icon" type="image/png" href="/logotipo.png" />
+		<!-- LINKS -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+		  rel="stylesheet"
+		  href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+		/>
+		<link href="https://fonts.googleapis.com/css2?family=Reddit+Sans+Condensed:wght@200..900&display=swap" rel="stylesheet">
+		<!-- CSS -->
+		<link rel="stylesheet" href="/styles/global.css" media="screen"/>
+		<!-- ASTRO BUILD -->
+		<meta name="generator" content={Astro.generator} />
+		<ViewTransitions />
+		<!-- TITLE -->
+		<title>{title}</title>
+	</head>
+	<body>
+		<main class={`${container ? "container" : ""}`}>
+			<slot />
+		</main>
+	</body>
+</html>

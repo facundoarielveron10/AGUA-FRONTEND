@@ -1,0 +1,26 @@
+---
+// CSS
+import '@styles/auth/confirm.css'
+
+// AUTH
+import { isLoggedIn } from '../utils/verifyAuth';
+
+// COMPONENTS
+import Layout from '../layouts/Layout.astro';
+import LayoutNotAuth from '../layouts/LayoutNotAuth.jsx';
+import FormConfirm from '../components/auth/FormConfirm.jsx';
+
+// REDIRECT
+const token = Astro.cookies.get("AUTH_TOKEN");
+if (isLoggedIn(token)) {
+	return Astro.redirect("/")
+}
+---
+
+<Layout title="Confirmar Cuenta - SSAA2" container={false}>
+	<LayoutNotAuth client:only="react">
+		<div class="confirm">
+			<FormConfirm client:only="react"/>
+		</div>
+	</LayoutNotAuth>
+</Layout>

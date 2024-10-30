@@ -5,22 +5,3 @@
     justify-content: center;
     user-select: none;
 }
-
-.logo img {
-    width: 100px;
-    height: 150px;
-}
-
-.logo-name {
-    margin: 0;
-    font-size: 1.4rem;
-    font-weight: bold;
-    font-family: "Reddit Sans Condensed", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 900;
-    font-style: normal;
-    background: linear-gradient(126deg, #1865c4 0%, #0093ee 50%, #0b78c6 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-}

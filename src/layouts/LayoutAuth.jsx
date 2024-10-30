@@ -1,9 +1,12 @@
-// CSS (Interns)
+// CSS (Internals)
+import "@styles/navbar.css";
 import "@styles/auth/form.css";
 import "@styles/spinner.css";
 import "@styles/logo.css";
-import "@styles/darkmode.css";
 import "@styles/alert.css";
+import "@styles/roles/roles.css";
+import "@styles/roles/create-edit.css";
+import "@styles/pagination.css";
 
 // CSS (External)
 import "react-toastify/dist/ReactToastify.css";
@@ -13,6 +16,7 @@ import { useEffect } from "react";
 
 // COMPONENTS
 import DarkMode from "../components/DarkMode.jsx";
+import Navbar from "../components/Navbar.jsx";
 
 // ZUSTAND
 import { useLoginStore } from "../zustand/loginStore";
@@ -49,7 +53,7 @@ export default function LayoutAuth({ children, action }) {
 
     return (
         <>
-            <DarkMode />
+            <Navbar />
             {children}
         </>
     );

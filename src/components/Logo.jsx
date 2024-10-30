@@ -9,10 +9,9 @@ import { useState } from "react";
 
 export default function Logo({
     animation = false,
-    name = false,
     className = "",
-    width = 50,
-    height = 40,
+    width = 200,
+    height = 50,
 }) {
     // STATES
     const [clicked, setClicked] = useState(false);
@@ -50,8 +49,6 @@ export default function Logo({
                         height={height}
                     />
                 )}
-
-                {name ? <p className="logo-name">Cooperativa O'Brein</p> : null}
             </div>
         </>
     );

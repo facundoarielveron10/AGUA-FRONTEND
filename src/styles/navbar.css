@@ -1,0 +1,61 @@
+/* NAVBAR */
+.navbar {
+    width: 100%;
+    height: 70px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--backgroundCard);
+    z-index: 100;
+    transition: all 0.3s ease-in-out;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.navbar-container {
+    max-width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.navbar-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.navbar-link {
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--textColor);
+    transition: all 0.3s ease-in-out;
+}
+
+.navbar-link:hover {
+    color: var(--primaryColor);
+}
+
+.navbar-logout {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--primaryColor);
+    padding: 0;
+}
+
+.navbar-logout svg {
+    width: 40px;
+    height: 40px;
+}

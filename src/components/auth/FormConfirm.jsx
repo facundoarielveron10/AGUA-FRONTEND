@@ -50,7 +50,7 @@ export default function FormLogin() {
             <Alert />
             {/* LOGO */}
             <div className="form-logo">
-                <Logo animation={true} name={true} width={80} height={60} />
+                <Logo animation={true} />
             </div>
             <form className="form" onSubmit={handleSubmit}>
                 {/* TOKEN */}

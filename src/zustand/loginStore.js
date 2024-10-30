@@ -67,7 +67,7 @@ export const useLoginStore = create(
             },
             editActions: (idRole, actions) => {
                 const { user } = get();
-                if (user?.role?._id === idRole) {
+                if (user?.role?.id === idRole) {
                     set((state) => ({
                         user: {
                             ...state.user,

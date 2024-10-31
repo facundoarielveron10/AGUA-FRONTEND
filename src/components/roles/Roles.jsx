@@ -10,6 +10,8 @@ import { getRoles } from "../../utils/getData";
 
 // COMPONENTS
 import Spinner from "../Spinner";
+import TableMobile from "./TableMobile";
+import Table from "./Table";
 
 // ALERTS
 import { toast } from "react-toastify";
@@ -23,7 +25,9 @@ import { useLoginStore } from "../../zustand/loginStore";
 
 // MODAL
 import Modal from "react-responsive-modal";
-import Table from "./Table";
+
+// MEDIA QUERY
+import { useMediaQuery } from "react-responsive";
 
 export default function Roles() {
     // STATES
@@ -36,15 +40,15 @@ export default function Roles() {
 
     // EFFECTS
     useEffect(() => {
-        const getRolesData = async () => {
-            const data = await getRoles();
-            setRoles(data);
-        };
-
         getRolesData();
     }, []);
 
     // FUNCTIONS
+    const getRolesData = async () => {
+        const data = await getRoles();
+        setRoles(data);
+    };
+
     const onOpenDeleteRoleModal = (rol) => {
         setOpen(true);
         setRoleDelete(rol);
@@ -55,7 +59,9 @@ export default function Roles() {
         setRoleDelete({});
     };
 
-    const handleDeleteRole = async () => {
+    const handleDeleteRole = async (e) => {
+        e.preventDefault();
+
         try {
             const { data } = await clientAxios.post(
                 "/role-action/delete-role",
@@ -64,12 +70,13 @@ export default function Roles() {
                 }
             );
 
-            toast.success(data);
             if (roleDelete.name === user.role.name) {
                 logout();
             }
 
-            window.location.reload();
+            toast.success(data);
+            onCloseDeleteRoleModal();
+            getRolesData();
         } catch (error) {
             toast.error(errorResponse(error));
             setRoleDelete({});
@@ -86,12 +93,16 @@ export default function Roles() {
             );
 
             toast.success(data);
-
-            await getRoles();
+            getRolesData();
         } catch (error) {
             toast.error(errorResponse(error));
         }
     };
+
+    // RESPONSIVE
+    const isDesktop = useMediaQuery({
+        query: "(min-width: 768px)",
+    });
 
     return (
         <>
@@ -106,8 +117,14 @@ export default function Roles() {
                     <div className="roles-spinner">
                         <Spinner />
                     </div>
-                ) : (
+                ) : isDesktop ? (
                     <Table
+                        roles={roles}
+                        onOpenDeleteRoleModal={onOpenDeleteRoleModal}
+                        handleActive={handleActive}
+                    />
+                ) : (
+                    <TableMobile
                         roles={roles}
                         onOpenDeleteRoleModal={onOpenDeleteRoleModal}
                         handleActive={handleActive}

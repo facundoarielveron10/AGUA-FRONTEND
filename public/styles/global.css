@@ -466,15 +466,37 @@ template {
 }
 
 /* MODAL */
+.react-responsive-modal-root {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.react-responsive-modal-container {
+    height: 100%;
+    outline: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: center;
+}
+
 .customOverlay {
     background: #222222b3 !important;
 }
 
 .customModal {
     background: var(--backgroundCard) !important;
-    max-width: 500px !important;
-    width: 100% !important;
     border-radius: 4px;
+}
+
+@media (min-width: 588px) {
+    .customModal {
+        max-width: 500px !important;
+        width: 100% !important;
+    }
 }
 
 .customCloseIcon {
@@ -583,7 +605,7 @@ template {
     background-color: var(--primaryColor);
     border: none;
     border-radius: 4px;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: bold;
     color: var(--backgroundTextColor);
     transition: background-color 0.3s;
@@ -592,4 +614,10 @@ template {
 
 .button:hover {
     background-color: var(--primaryDarkColor);
+}
+
+@media (min-width: 468px) {
+    .button {
+        font-size: 1rem;
+    }
 }

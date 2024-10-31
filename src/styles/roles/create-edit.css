@@ -4,13 +4,20 @@
     align-items: center;
     justify-content: center;
     background-color: var(--backgroundColor);
-    padding: 1.5rem;
+    padding: 5rem 1rem;
     border-radius: 8px;
     color: var(--textColor);
 }
 
+@media (min-width: 768px) {
+    .roles {
+        padding: 1.5rem 0;
+    }
+}
+
 .createEditRole-form {
-    width: 600px;
+    max-width: 600px;
+    width: 100%;
 }
 
 .createEditRole-group,
@@ -80,8 +87,8 @@
 
 .createEditRole-checkbox {
     appearance: none;
-    width: 18px;
     height: 18px;
+    width: 18px;
     border: 2px solid var(--primaryColor);
     border-radius: 4px;
     background-color: var(--backgroundInput);
@@ -114,9 +121,16 @@
 }
 
 .createEditRole-description {
+    font-size: 0.8rem;
     color: var(--textColor);
     cursor: pointer;
     user-select: none;
+}
+
+@media (min-width: 468px) {
+    .createEditRole-description {
+        font-size: 1rem;
+    }
 }
 
 .createEditRole-button {

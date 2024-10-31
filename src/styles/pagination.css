@@ -7,9 +7,16 @@
 }
 
 .pagination-page {
+    font-size: 0.8rem;
     color: var(--textColor);
     font-weight: bold;
     text-transform: uppercase;
+}
+
+@media (min-width: 468px) {
+    .pagination-page {
+        font-size: 1rem;
+    }
 }
 
 .pagination-disabled {

@@ -20,9 +20,11 @@ export default function Table({ roles, onOpenDeleteRoleModal, handleActive }) {
                     <tbody>
                         {roles.map((rol) => (
                             <tr key={rol.id}>
-                                <td>{rol.name}</td>
-                                <td>{rol.description}</td>
-                                <td>
+                                <td data-label="Nombre">{rol.name}</td>
+                                <td data-label="Descripción">
+                                    {rol.description}
+                                </td>
+                                <td data-label="Acciones">
                                     {rol.active ? (
                                         <div className="roles-buttons">
                                             {canExecute("EDIT_ROLE") ? (
@@ -32,9 +34,7 @@ export default function Table({ roles, onOpenDeleteRoleModal, handleActive }) {
                                                 >
                                                     Editar
                                                 </a>
-                                            ) : (
-                                                "-"
-                                            )}
+                                            ) : null}
                                             {canExecute("DELETE_ROLE") &&
                                             rol.name !== "ROLE_ADMIN" &&
                                             rol.name !== "ROLE_USER" ? (
@@ -48,9 +48,7 @@ export default function Table({ roles, onOpenDeleteRoleModal, handleActive }) {
                                                 >
                                                     Eliminar
                                                 </button>
-                                            ) : (
-                                                "-"
-                                            )}
+                                            ) : null}
                                         </div>
                                     ) : (
                                         <div className="roles-buttons">
@@ -63,9 +61,7 @@ export default function Table({ roles, onOpenDeleteRoleModal, handleActive }) {
                                                 >
                                                     Activar
                                                 </button>
-                                            ) : (
-                                                "-"
-                                            )}
+                                            ) : null}
                                         </div>
                                     )}
                                 </td>

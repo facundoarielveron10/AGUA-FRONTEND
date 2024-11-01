@@ -1,0 +1,63 @@
+.modal-title {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    color: var(--textColor);
+}
+
+@media (min-width: 468px) {
+    .modal-title {
+        font-size: 1.5rem;
+    }
+}
+
+.modal-paragraph {
+    font-weight: bold;
+    color: var(--textColor);
+}
+
+.modal-paragraph span {
+    font-weight: normal;
+}
+
+.modal-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.modal-delete {
+    background-color: var(--colorDelete);
+}
+
+.modal-delete:hover {
+    background-color: var(--colorDeleteDark);
+}
+
+.modal-select {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: var(--backgroundInput);
+    color: var(--textColor);
+    border: 2px solid var(--primaryColor);
+    border-radius: 4px;
+    font-size: 16px;
+    appearance: none;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.modal-select:hover {
+    border-color: var(--primaryDarkColor);
+}
+
+.modal-select:focus {
+    border-color: var(--primaryDarkColor);
+}
+
+.modal-option {
+    background-color: var(--backgroundCard);
+    color: var(--textColor);
+}

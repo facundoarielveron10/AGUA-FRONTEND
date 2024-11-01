@@ -1,0 +1,261 @@
+/* RESPONSIVE DESKTOP */
+.list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+    align-items: center;
+}
+
+.list {
+    background-color: var(--backgroundCard);
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 1000px;
+    width: 100%;
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.list-subtitle {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--textColor);
+    margin-bottom: 10px;
+}
+
+.list-filter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.list-select {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: var(--backgroundInput);
+    color: var(--textColor);
+    border: 2px solid var(--primaryColor);
+    border-radius: 4px;
+    font-size: 16px;
+    appearance: none;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.list-no-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--textColor);
+}
+
+.list-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.list-table thead {
+    color: var(--backgroundTextColor);
+}
+
+.list-table tbody {
+    color: var(--textColor);
+}
+
+.list-table th,
+.list-table td {
+    padding: 10px;
+    text-align: left;
+}
+
+.list-table th {
+    background-color: var(--primaryDarkColor);
+}
+
+.list-table tr:nth-child(even) {
+    background-color: var(--backgroundInput);
+}
+
+.list-head-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.list-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+
+.list-actions-confirm {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+
+.list-buttons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+}
+
+.list-button-table {
+    text-decoration: none;
+    font-size: 0.8rem;
+}
+
+.list-delete {
+    background-color: var(--colorDelete);
+}
+
+.list-delete:hover {
+    background-color: var(--colorDeleteDark);
+}
+
+.list-actions button {
+    font-size: 0.8rem;
+}
+
+/* RESPONSIVE MOBILE */
+.list-mobile-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: var(--backgroundCard);
+    border-radius: 8px;
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    width: 100%;
+}
+
+.list-mobile-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    margin: 1rem 0;
+}
+
+.list-mobile-subtitle {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--textColor);
+    margin: 0;
+}
+
+.list-mobile-filter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.list-mobile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.list-mobile-fields {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1rem;
+    background-color: var(--backgroundColor);
+    border: 1px solid var(--primaryColor);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+        rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+        rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    border-radius: 8px;
+    padding: 0.5rem;
+    width: 100%;
+}
+
+.list-mobile-field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.list-mobile-label {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--textColor);
+    text-transform: uppercase;
+}
+
+.list-mobile-value {
+    font-size: 0.8rem;
+    font-weight: normal;
+    color: var(--textColor);
+    text-align: end;
+}
+
+@media (min-width: 368px) {
+    .list-mobile-value {
+        font-size: 1rem;
+    }
+
+    .list-mobile-label {
+        font-size: 1rem;
+    }
+}
+
+.list-mobile-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    text-align: end;
+    width: 100%;
+}
+
+.list-mobile-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 1rem;
+    width: 100%;
+}
+
+@media (min-width: 510px) {
+    .list-mobile-buttons {
+        flex-direction: row;
+        align-items: center;
+    }
+}
+
+.list-button-expand {
+    display: block;
+    background: none;
+    border: none;
+    color: var(--primaryColor);
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 0;
+    text-decoration: underline;
+}

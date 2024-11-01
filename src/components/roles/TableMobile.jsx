@@ -15,16 +15,27 @@ export default function TableMobile({
     const { canExecute } = useLoginStore();
 
     return (
-        <div className="roles-mobile-container">
-            {roles.map((rol) => (
-                <RoleCard
-                    key={rol.id}
-                    rol={rol}
-                    onOpenDeleteRoleModal={onOpenDeleteRoleModal}
-                    handleActive={handleActive}
-                    canExecute={canExecute}
-                />
-            ))}
+        <div className="list-mobile-container">
+            <div className="list-mobile-header">
+                <h2 className="list-mobile-subtitle">Roles</h2>
+            </div>
+            <div className="list-mobile">
+                {roles.length > 0 ? (
+                    roles.map((rol, index) => (
+                        <RoleCard
+                            key={index}
+                            rol={rol}
+                            onOpenDeleteRoleModal={onOpenDeleteRoleModal}
+                            handleActive={handleActive}
+                            canExecute={canExecute}
+                        />
+                    ))
+                ) : (
+                    <div className="list-no-data">
+                        No hay ningún rol disponible
+                    </div>
+                )}
+            </div>
         </div>
     );
 }
@@ -39,23 +50,23 @@ function RoleCard({ rol, onOpenDeleteRoleModal, handleActive, canExecute }) {
     });
 
     return (
-        <div className="roles-mobile-role">
-            <div className="roles-mobile-field">
-                <span className="roles-mobile-label">Nombre:</span>
-                <span className="roles-mobile-value">{rol.name}</span>
+        <div className="list-mobile-fields">
+            <div className="list-mobile-field">
+                <span className="list-mobile-label">Nombre:</span>
+                <span className="list-mobile-value">{rol.name}</span>
             </div>
             {isTablet ? (
-                <div className="roles-mobile-field">
-                    <span className="roles-mobile-label">Descripción:</span>
-                    <div className="roles-mobile-description">
-                        <span className="roles-mobile-value">
+                <div className="list-mobile-field">
+                    <span className="list-mobile-label">Descripción:</span>
+                    <div className="list-mobile-description">
+                        <span className="list-mobile-value">
                             {isExpanded
                                 ? rol.description
                                 : `${rol.description.slice(0, 50)}...`}
                         </span>
                         <button
                             onClick={() => setIsExpanded(!isExpanded)}
-                            className="roles-button-expand"
+                            className="list-button-expand"
                         >
                             {isExpanded ? "Ver menos" : "Ver más"}
                         </button>
@@ -63,15 +74,15 @@ function RoleCard({ rol, onOpenDeleteRoleModal, handleActive, canExecute }) {
                 </div>
             ) : null}
 
-            <div className="roles-mobile-field">
-                <span className="roles-mobile-label">Acciones:</span>
-                <div className="roles-mobile-buttons">
+            <div className="list-mobile-field">
+                <span className="list-mobile-label">Acciones:</span>
+                <div className="list-mobile-buttons">
                     {rol.active ? (
                         <>
                             {canExecute("EDIT_ROLE") ? (
                                 <a
                                     href={`edit-role/${rol.id}`}
-                                    className="roles-button-table roles-edit button"
+                                    className="list-button-table list-edit button"
                                 >
                                     Editar
                                 </a>
@@ -81,7 +92,7 @@ function RoleCard({ rol, onOpenDeleteRoleModal, handleActive, canExecute }) {
                             rol.name !== "ROLE_USER" ? (
                                 <button
                                     onClick={() => onOpenDeleteRoleModal(rol)}
-                                    className="roles-button-table roles-delete button"
+                                    className="list-button-table list-delete button"
                                 >
                                     Eliminar
                                 </button>
@@ -89,10 +100,10 @@ function RoleCard({ rol, onOpenDeleteRoleModal, handleActive, canExecute }) {
                         </>
                     ) : (
                         <>
-                            {canExecute("ACTIVE_ROLE") ? (
+                            {canExecute("ACTIVATE_ROLE") ? (
                                 <button
                                     onClick={() => handleActive(rol.id)}
-                                    className="roles-button-table button"
+                                    className="list-button-table button"
                                 >
                                     Activar
                                 </button>

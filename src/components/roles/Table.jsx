@@ -6,15 +6,15 @@ export default function Table({ roles, onOpenDeleteRoleModal, handleActive }) {
     const { canExecute } = useLoginStore();
 
     return (
-        <div className="roles-list-container">
-            <div className="roles-list">
-                <h2 className="roles-subtitle">Roles</h2>
-                <table className="roles-table">
+        <div className="list-container">
+            <div className="list">
+                <h2 className="list-subtitle">Roles</h2>
+                <table className="list-table">
                     <thead>
                         <tr>
                             <th>Nombre</th>
                             <th>Descripcion</th>
-                            <th className="roles-head-actions">Acciones</th>
+                            <th className="list-head-actions">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -26,11 +26,11 @@ export default function Table({ roles, onOpenDeleteRoleModal, handleActive }) {
                                 </td>
                                 <td data-label="Acciones">
                                     {rol.active ? (
-                                        <div className="roles-buttons">
+                                        <div className="list-buttons">
                                             {canExecute("EDIT_ROLE") ? (
                                                 <a
                                                     href={`edit-role/${rol.id}`}
-                                                    className="roles-button-table roles-edit button"
+                                                    className="list-button-table list-edit button"
                                                 >
                                                     Editar
                                                 </a>
@@ -44,20 +44,20 @@ export default function Table({ roles, onOpenDeleteRoleModal, handleActive }) {
                                                             rol
                                                         )
                                                     }
-                                                    className="roles-button-table roles-delete button"
+                                                    className="list-button-table list-delete button"
                                                 >
                                                     Eliminar
                                                 </button>
                                             ) : null}
                                         </div>
                                     ) : (
-                                        <div className="roles-buttons">
-                                            {canExecute("ACTIVE_ROLE") ? (
+                                        <div className="list-buttons">
+                                            {canExecute("ACTIVATE_ROLE") ? (
                                                 <button
                                                     onClick={() =>
                                                         handleActive(rol.id)
                                                     }
-                                                    className="roles-button-table button"
+                                                    className="list-button-table button"
                                                 >
                                                     Activar
                                                 </button>

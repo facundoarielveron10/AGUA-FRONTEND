@@ -1,15 +1,12 @@
-// REACT
-import { useState } from "react";
-
 // ICONS
 import { IoLogOutOutline } from "react-icons/io5";
 
 // ZUSTAND
-import { useLoginStore } from "../zustand/loginStore";
+import { useLoginStore } from "../../zustand/loginStore";
 
 // COMPONENTS
-import Logo from "./Logo";
-import DarkMode from "./DarkMode";
+import Logo from "../Logo";
+import DarkMode from "../DarkMode";
 
 export default function Navbar() {
     // ZUSTAND
@@ -19,7 +16,9 @@ export default function Navbar() {
         <nav className={`navbar`}>
             <div className="navbar-container">
                 {/* LOGO */}
-                <Logo animation={false} width={150} height={37.5} />
+                <a href="/">
+                    <Logo animation={false} width={150} height={37.5} />
+                </a>
 
                 <div className="navbar-actions">
                     {/* LINKS */}

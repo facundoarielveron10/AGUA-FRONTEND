@@ -20,25 +20,23 @@ export default function DeleteRoleModal({
                 }}
             >
                 <form onSubmit={handleDeleteRole}>
-                    <h2 className="roles-modal-title">
+                    <h2 className="modal-title">
                         ¿Estas seguro de eliminar el rol?
                     </h2>
-                    <div className="roles-modal-rol">
-                        <p>
-                            Nombre: <span>{roleDelete?.name}</span>
-                        </p>
-                        <p>
-                            Nombre descriptivo:{" "}
-                            <span>{roleDelete?.nameDescriptive}</span>
-                        </p>
-                        <p>
-                            Descripcion: <span>{roleDelete?.description}</span>
-                        </p>
-                    </div>
+                    <p className="modal-paragraph">
+                        Nombre: <span>{roleDelete?.name}</span>
+                    </p>
+                    <p className="modal-paragraph">
+                        Nombre descriptivo:{" "}
+                        <span>{roleDelete?.nameDescriptive}</span>
+                    </p>
+                    <p className="modal-paragraph">
+                        Descripcion: <span>{roleDelete?.description}</span>
+                    </p>
 
                     <button
                         type="submit"
-                        className="button roles-delete roles-modal-button"
+                        className="button modal-delete modal-button"
                     >
                         Eliminar Rol
                     </button>

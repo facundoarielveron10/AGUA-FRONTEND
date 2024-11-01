@@ -20,24 +20,22 @@ export default function DeleteUserModal({
                 }}
             >
                 <form onSubmit={handleDeleteUser}>
-                    <h2 className="listUser-modal-title">
+                    <h2 className="modal-title">
                         ¿Estás seguro de eliminar el Usuario?
                     </h2>
-                    <div className="listUser-modal-user">
-                        <p>
-                            Nombre: <span>{user.name}</span>
-                        </p>
-                        <p>
-                            Apellido: <span>{user.lastname}</span>
-                        </p>
-                        <p>
-                            Email: <span>{user.email}</span>
-                        </p>
-                    </div>
+                    <p className="modal-paragraph">
+                        Nombre: <span>{user.name}</span>
+                    </p>
+                    <p className="modal-paragraph">
+                        Apellido: <span>{user.lastname}</span>
+                    </p>
+                    <p className="modal-paragraph">
+                        Email: <span>{user.email}</span>
+                    </p>
 
                     <button
                         type="submit"
-                        className="button listUser-delete listUser-modal-button"
+                        className="button modal-delete modal-button"
                     >
                         Eliminar Usuario
                     </button>

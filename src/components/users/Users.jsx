@@ -16,6 +16,7 @@ import Spinner from "../Spinner";
 import Table from "./Table";
 import Pagination from "../Pagination";
 import Search from "../Search";
+import TableMobile from "./TableMobile";
 
 // ALERTS
 import { toast } from "react-toastify";
@@ -25,6 +26,9 @@ import Alert from "../Alert";
 import { useLoginStore } from "../../zustand/loginStore";
 import ChangeRoleModal from "../modal/ChangeRoleModal";
 import DeleteUserModal from "../modal/DeleteUserModal";
+
+// RESPONSIVE
+import { useMediaQuery } from "react-responsive";
 
 export default function Users() {
     // STATES
@@ -197,10 +201,13 @@ export default function Users() {
         }
     };
 
+    // RESPONSIVE
+    const isDesktop = useMediaQuery({ query: "(min-width: 1080px)" });
+
     return (
         <>
             <Alert />
-            <div className="listUser">
+            <div className="users">
                 <h1 className="title">Listado de usuarios</h1>
                 <p className="paragraph">
                     En este listado se pueden ver todos los usuarios registrados
@@ -209,26 +216,39 @@ export default function Users() {
                 </p>
 
                 {loading ? (
-                    <div className="listUser-spinner">
+                    <div className="users-spinner">
                         <Spinner />
                     </div>
                 ) : (
-                    <div className="listUser-users">
+                    <div className="users-list">
                         <Search
                             handleSearch={handleSearch}
                             handleClean={getUsers}
                             search={search}
                             setSearch={setSearch}
                         />
-                        <Table
-                            users={filteredUsers}
-                            onOpenChangeRoleModal={onOpenChangeRoleModal}
-                            onOpenDeleteUserModal={onOpenDeleteUserModal}
-                            handleRoleChange={handleRoleChange}
-                            handleActive={handleActive}
-                            selectedRole={selectedRole}
-                            roles={roles}
-                        />
+                        {isDesktop ? (
+                            <Table
+                                users={filteredUsers}
+                                onOpenChangeRoleModal={onOpenChangeRoleModal}
+                                onOpenDeleteUserModal={onOpenDeleteUserModal}
+                                handleRoleChange={handleRoleChange}
+                                handleActive={handleActive}
+                                selectedRole={selectedRole}
+                                roles={roles}
+                            />
+                        ) : (
+                            <TableMobile
+                                users={users}
+                                onOpenChangeRoleModal={onOpenChangeRoleModal}
+                                onOpenDeleteUserModal={onOpenDeleteUserModal}
+                                handleRoleChange={handleRoleChange}
+                                handleActive={handleActive}
+                                selectedRole={selectedRole}
+                                roles={roles}
+                            />
+                        )}
+
                         {filteredUsers.length > 0 ? (
                             <Pagination
                                 handleNextPage={handleNextPage}
@@ -256,7 +276,7 @@ export default function Users() {
                 user={userDelete}
             />
             {canExecute("CREATE_USER") ? (
-                <a href="create-user" className="listUser-button button">
+                <a href="create-user" className="users-button button">
                     Crear usuario
                 </a>
             ) : null}

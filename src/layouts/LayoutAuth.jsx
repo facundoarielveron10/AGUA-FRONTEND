@@ -10,22 +10,32 @@ import "@styles/users/users.css";
 import "@styles/users/create-edit.css";
 import "@styles/pagination.css";
 import "@styles/search.css";
+import "@styles/list.css";
+import "@styles/modal.css";
+import "@styles/darkmode.css";
 
 // CSS (External)
 import "react-toastify/dist/ReactToastify.css";
 
 // REACT
-import { act, useEffect } from "react";
+import { useEffect } from "react";
 
 // COMPONENTS
-import Navbar from "../components/Navbar.jsx";
+import Navbar from "src/components/navbar/Navbar.jsx";
+import DarkMode from "src/components/DarkMode.jsx";
 
 // ZUSTAND
 import { useLoginStore } from "../zustand/loginStore";
 
+// RESPONSIVE
+import { useMediaQuery } from "react-responsive";
+
 export default function LayoutAuth({ children, action }) {
     // ZUSTAND
     const { canExecute, initializeTheme } = useLoginStore();
+
+    // RESPONSIVE
+    const isDesktop = useMediaQuery({ query: "(min-width: 968px)" });
 
     // EFFECTS
     useEffect(() => {
@@ -56,6 +66,7 @@ export default function LayoutAuth({ children, action }) {
     return (
         <>
             <Navbar />
+            {!isDesktop && <DarkMode />}
             {children}
         </>
     );

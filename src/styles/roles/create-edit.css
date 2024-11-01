@@ -3,10 +3,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: var(--backgroundColor);
     padding: 5rem 1rem;
-    border-radius: 8px;
-    color: var(--textColor);
 }
 
 @media (min-width: 768px) {
@@ -16,6 +13,10 @@
 }
 
 .createEditRole-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     max-width: 600px;
     width: 100%;
 }

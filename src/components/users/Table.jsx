@@ -65,7 +65,7 @@ export default function Table({
                                                         "CHANGE_ROLE"
                                                     ) ? (
                                                         <button
-                                                            className="button"
+                                                            className="list-button-table button"
                                                             onClick={() =>
                                                                 onOpenChangeRoleModal(
                                                                     user

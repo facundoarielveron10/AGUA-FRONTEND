@@ -8,7 +8,8 @@ import { isLoggedIn } from '../utils/verifyAuth';
 // COMPONENTS
 import Layout from '../layouts/Layout.astro';
 import LayoutAuth from "../layouts/LayoutAuth.jsx";
-import Create from "../components/users/Create.jsx";
+import ProfileUser from "../components/profile/Profile.jsx";
+import Address from "../components/profile/Address.jsx";
 
 // REDIRECT
 const token = Astro.cookies.get("AUTH_TOKEN");
@@ -17,10 +18,9 @@ if (!isLoggedIn(token)) {
 }
 ---
 
-<Layout title="Crear Usuario - Cooperativa O'Brein" container={false}>
-	<LayoutAuth client:only="react" action="CREATE_USER">
-		<div class="register">
-			<Create client:only="react"/>
-		</div>
+<Layout title="Perfil - Cooperativa O'Brein" container={true}>
+	<LayoutAuth client:only="react" action="GET_PROFILE">
+		<ProfileUser client:only="react"/>
+        <Address client:only="react"/>
 	</LayoutAuth>
 </Layout>

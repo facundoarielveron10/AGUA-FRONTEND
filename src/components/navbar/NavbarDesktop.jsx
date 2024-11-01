@@ -1,5 +1,6 @@
 // ICONS
 import { IoLogOutOutline } from "react-icons/io5";
+import { FaUser } from "react-icons/fa";
 
 // ZUSTAND
 import { useLoginStore } from "../../zustand/loginStore";
@@ -31,6 +32,11 @@ export default function Navbar() {
                         {canExecute("GET_USERS") && (
                             <a className="navbar-link" href="/users">
                                 Usuarios
+                            </a>
+                        )}
+                        {canExecute("GET_PROFILE") && (
+                            <a className="navbar-link" href="/profile">
+                                <FaUser className="navbar-profile" />
                             </a>
                         )}
                         <button

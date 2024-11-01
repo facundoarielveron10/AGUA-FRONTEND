@@ -47,12 +47,32 @@
     color: var(--primaryColor);
 }
 
+.navbar-profile {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: var(--primaryColor);
+    color: var(--textColor);
+    padding: 0.5rem;
+    transition: all 0.3s ease-in-out;
+}
+
+.navbar-profile:hover {
+    color: var(--primaryColor);
+    background-color: var(--primaryDarkColor);
+}
+
 .navbar-logout {
     background-color: transparent;
     border: none;
     cursor: pointer;
     color: var(--primaryColor);
+    transition: all 0.3s ease-in-out;
     padding: 0;
+}
+
+.navbar-logout:hover {
+    color: var(--primaryDarkColor);
 }
 
 .navbar-logout svg {

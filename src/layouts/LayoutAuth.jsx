@@ -13,6 +13,9 @@ import "@styles/search.css";
 import "@styles/list.css";
 import "@styles/modal.css";
 import "@styles/darkmode.css";
+import "@styles/home/home.css";
+import "@styles/profile/profile.css";
+import "@styles/profile/address.css";
 
 // CSS (External)
 import "react-toastify/dist/ReactToastify.css";

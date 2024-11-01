@@ -15,19 +15,17 @@ import Alert from "../Alert.jsx";
 // ZUSTAND
 import { useLoginStore } from "../../zustand/loginStore.js";
 
-export default function Edit({ id }) {
+export default function Profile() {
     // STATES
     const [name, setName] = useState("");
     const [lastname, setLastname] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
-    const [role, setRole] = useState("");
-    const [roles, setRoles] = useState([]);
     const [userData, setUserData] = useState({});
 
     // ZUSTAND
-    const { user, logout } = useLoginStore();
+    const { user } = useLoginStore();
 
     // FUNCTIONS
     const resetValues = () => {
@@ -38,7 +36,7 @@ export default function Edit({ id }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if ([name, lastname, email, role].includes("")) {
+        if ([name, lastname, email].includes("")) {
             toast.error("Todos los campos son obligatorios");
             return;
         }
@@ -47,7 +45,6 @@ export default function Edit({ id }) {
             name === userData?.name &&
             lastname === userData?.lastname &&
             email === userData?.email &&
-            role === userData?.Role?.name &&
             password === "" &&
             passwordConfirm === ""
         ) {
@@ -62,20 +59,15 @@ export default function Edit({ id }) {
 
         try {
             const { data } = await clientAxios.post("/user/edit-user", {
-                userId: id,
+                userId: user?.id,
                 name,
                 lastname,
                 email,
                 password,
                 passwordConfirm,
-                role,
             });
 
             toast.success(data);
-
-            if (Number(id) === Number(user?.id) && role !== user?.role?.name) {
-                logout();
-            }
 
             resetValues();
             await getUser();
@@ -86,13 +78,12 @@ export default function Edit({ id }) {
 
     const getUser = async () => {
         try {
-            const { data } = await clientAxios.get(`/user/user/${id}`);
+            const { data } = await clientAxios.get(`/user/user/${user?.id}`);
 
             setUserData(data);
             setName(data?.name);
             setLastname(data?.lastname);
             setEmail(data?.email);
-            setRole(data?.Role?.name);
         } catch (error) {
             toast.error(errorResponse(error));
         }
@@ -100,25 +91,18 @@ export default function Edit({ id }) {
 
     // EFFECTS
     useEffect(() => {
-        const getRolesData = async () => {
-            const data = await getRoles();
-
-            setRoles(data);
-        };
-
-        getRolesData();
         getUser();
     }, []);
 
     return (
         <>
             <Alert />
-            <div className="createEditUser">
-                <h1 className="title">Edicion de Usuario</h1>
+            <div className="profile">
+                <h1 className="title">Perfil de Usuario</h1>
                 <p className="paragraph">
-                    Cambia los datos del siguiente formulario para editar el
-                    usuario, donde podemos cambiar los datos de nombre,
-                    apellido, email, contraseña y rol del usuario.
+                    Cambia los datos del siguiente formulario para editar tu
+                    perfil, donde podemos cambiar los datos de nombre, apellido,
+                    email y contraseña.
                 </p>
 
                 <form className="form" onSubmit={handleSubmit}>
@@ -187,42 +171,12 @@ export default function Edit({ id }) {
                             onChange={(e) => setPasswordConfirm(e.target.value)}
                         />
                     </div>
-                    {/* ROL DEL USUARIO */}
-                    <div className="form-group createEditUser-select">
-                        <label className="form-label" htmlFor="passwordConfirm">
-                            Rol del usuario
-                        </label>
-                        <select
-                            className="form-input"
-                            value={role}
-                            onChange={(e) => setRole(e.target.value)}
-                        >
-                            <option
-                                disabled
-                                className="createEditUser-option"
-                                value=""
-                            >
-                                Seleccionar Rol
-                            </option>
-                            {roles.length > 0
-                                ? roles.map((rol) => (
-                                      <option
-                                          key={rol?.id}
-                                          className="createEditUser-option"
-                                          value={rol?.name}
-                                      >
-                                          {rol?.nameDescriptive}
-                                      </option>
-                                  ))
-                                : null}
-                        </select>
-                    </div>
 
                     <button
-                        className="createEditUser-button form-submit button"
+                        className="profile-button form-submit button"
                         type="submit"
                     >
-                        Editar usuario
+                        Editar Perfil
                     </button>
                 </form>
             </div>

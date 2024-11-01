@@ -24,7 +24,7 @@ import clientAxios from "../../config/ClientAxios";
 import { useLoginStore } from "../../zustand/loginStore";
 
 // MODAL
-import Modal from "react-responsive-modal";
+import DeleteRoleModal from "../modal/DeleteRoleModal";
 
 // MEDIA QUERY
 import { useMediaQuery } from "react-responsive";
@@ -32,7 +32,7 @@ import { useMediaQuery } from "react-responsive";
 export default function Roles() {
     // STATES
     const [roles, setRoles] = useState([]);
-    const [open, setOpen] = useState(false);
+    const [deleteRoleModal, setDeleteRoleModal] = useState(false);
     const [roleDelete, setRoleDelete] = useState({});
 
     // ZUSTAND
@@ -50,12 +50,12 @@ export default function Roles() {
     };
 
     const onOpenDeleteRoleModal = (rol) => {
-        setOpen(true);
+        setDeleteRoleModal(true);
         setRoleDelete(rol);
     };
 
     const onCloseDeleteRoleModal = () => {
-        setOpen(false);
+        setDeleteRoleModal(false);
         setRoleDelete({});
     };
 
@@ -70,7 +70,7 @@ export default function Roles() {
                 }
             );
 
-            if (roleDelete.name === user.role.name) {
+            if (roleDelete?.name === user?.role?.name) {
                 logout();
             }
 
@@ -131,44 +131,12 @@ export default function Roles() {
                     />
                 )}
             </div>
-            <div>
-                <Modal
-                    open={open}
-                    onClose={onCloseDeleteRoleModal}
-                    center
-                    classNames={{
-                        overlay: "customOverlay",
-                        modal: "customModal",
-                        closeIcon: "customCloseIcon",
-                    }}
-                >
-                    <form onSubmit={handleDeleteRole}>
-                        <h2 className="roles-modal-title">
-                            ¿Estas seguro de eliminar el rol?
-                        </h2>
-                        <div className="roles-modal-rol">
-                            <p>
-                                Nombre: <span>{roleDelete.name}</span>
-                            </p>
-                            <p>
-                                Nombre descriptivo:{" "}
-                                <span>{roleDelete.nameDescriptive}</span>
-                            </p>
-                            <p>
-                                Descripcion:{" "}
-                                <span>{roleDelete.description}</span>
-                            </p>
-                        </div>
-
-                        <button
-                            type="submit"
-                            className="button roles-delete roles-modal-button"
-                        >
-                            Eliminar Rol
-                        </button>
-                    </form>
-                </Modal>
-            </div>
+            <DeleteRoleModal
+                deleteRoleModal={deleteRoleModal}
+                onCloseDeleteRoleModal={onCloseDeleteRoleModal}
+                handleDeleteRole={handleDeleteRole}
+                roleDelete={roleDelete}
+            />
             {canExecute("CREATE_ROLE") ? (
                 <a href="create-role" className="roles-button button">
                     Crear Rol

@@ -6,16 +6,18 @@ import "@styles/logo.css";
 import "@styles/alert.css";
 import "@styles/roles/roles.css";
 import "@styles/roles/create-edit.css";
+import "@styles/users/users.css";
+import "@styles/users/create-edit.css";
 import "@styles/pagination.css";
+import "@styles/search.css";
 
 // CSS (External)
 import "react-toastify/dist/ReactToastify.css";
 
 // REACT
-import { useEffect } from "react";
+import { act, useEffect } from "react";
 
 // COMPONENTS
-import DarkMode from "../components/DarkMode.jsx";
 import Navbar from "../components/Navbar.jsx";
 
 // ZUSTAND

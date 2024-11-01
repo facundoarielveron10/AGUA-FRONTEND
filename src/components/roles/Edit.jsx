@@ -71,9 +71,9 @@ export default function Edit({ id }) {
             );
 
             setRole(role);
-            setName(role.name);
-            setNameDescriptive(role.nameDescriptive);
-            setDescription(role.description);
+            setName(role?.name);
+            setNameDescriptive(role?.nameDescriptive);
+            setDescription(role?.description);
             setSelectedActions(actionNames);
             setSelectedActionsOriginal(actionNames);
         } catch (error) {
@@ -108,9 +108,9 @@ export default function Edit({ id }) {
 
         if (
             !haveArraysChanged(selectedActionsOriginal, selectedActions) &&
-            name === role.name &&
-            nameDescriptive === role.nameDescriptive &&
-            description === role.description
+            name === role?.name &&
+            nameDescriptive === role?.nameDescriptive &&
+            description === role?.description
         ) {
             toast.error("No se han realizado cambios");
             return;

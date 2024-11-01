@@ -10,7 +10,7 @@
 }
 
 @media (min-width: 768px) {
-    .roles {
+    .createEditRole {
         padding: 1.5rem 0;
     }
 }

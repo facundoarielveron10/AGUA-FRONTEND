@@ -29,6 +29,11 @@ export default function Navbar() {
                                 Roles
                             </a>
                         )}
+                        {canExecute("GET_USERS") && (
+                            <a className="navbar-link" href="/users">
+                                Usuarios
+                            </a>
+                        )}
                         <button
                             className="navbar-logout"
                             onClick={logout}

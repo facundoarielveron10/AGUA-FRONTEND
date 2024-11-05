@@ -61,3 +61,11 @@
     background-color: var(--backgroundCard);
     color: var(--textColor);
 }
+
+.modal-form {
+    width: 100%;
+}
+
+.modal-group {
+    margin: 0.5rem 0;
+}

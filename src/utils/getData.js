@@ -8,7 +8,7 @@ import { errorResponse } from "./error";
 import clientAxios from "../config/ClientAxios";
 
 export const getTypeActions = () => {
-    const types = ["Usuarios", "Roles", "Pedidos"];
+    const types = ["Usuarios", "Roles", "Pedidos", "Direcciones"];
 
     return types;
 };
@@ -53,6 +53,16 @@ export const getActions = async (currentPage, limit, selectedType) => {
         return data;
     } catch (error) {
         toast.error(errorResponse(error));
+    }
+};
+
+export const getAddress = async (userId) => {
+    try {
+        const { data } = await clientAxios.get(`/directions/address/${userId}`);
+
+        return data;
+    } catch (error) {
+        errorResponse(error);
     }
 };
 

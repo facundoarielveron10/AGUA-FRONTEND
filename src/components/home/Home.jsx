@@ -1,9 +1,30 @@
+// REACT
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+
+// UTILS
+import { getAddress } from "src/utils/getData";
+
 // ZUSTAND
 import { useLoginStore } from "src/zustand/loginStore";
 
 export default function Home() {
     // ZUSTAND
-    const { canExecute } = useLoginStore();
+    const { canExecute, user } = useLoginStore();
+
+    // STATES
+    const [directions, setDirections] = useState([]);
+
+    // EFFECTS
+    useEffect(() => {
+        if (!canExecute("GET_ADDRESS")) {
+            return;
+        }
+
+        getAddress(user?.id).then((data) => {
+            setDirections(data);
+        });
+    }, []);
 
     return (
         <div className="home">
@@ -43,12 +64,14 @@ export default function Home() {
                                             <option value="">
                                                 Seleccione una dirección
                                             </option>
-                                            <option value="dir1">
-                                                Francia 1640
-                                            </option>
-                                            <option value="dir2">
-                                                Rio Negro 450
-                                            </option>
+                                            {directions.map((direction) => (
+                                                <option
+                                                    key={direction.id}
+                                                    value={direction.id}
+                                                >
+                                                    {direction.address}
+                                                </option>
+                                            ))}
                                         </select>
                                     </div>
                                 </div>

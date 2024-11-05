@@ -19,6 +19,7 @@ import "@styles/profile/address.css";
 
 // CSS (External)
 import "react-toastify/dist/ReactToastify.css";
+import "react-responsive-modal/styles.css";
 
 // REACT
 import { useEffect } from "react";

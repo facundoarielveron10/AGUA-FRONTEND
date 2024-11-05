@@ -119,6 +119,11 @@
     font-size: 0.8rem;
 }
 
+.list-button-table-icon {
+    width: 20px;
+    height: 20px;
+}
+
 .list-delete {
     background-color: var(--colorDelete);
 }

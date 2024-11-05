@@ -36,6 +36,7 @@
     font-size: 0.9rem;
     text-transform: uppercase;
     user-select: none;
+    color: var(--textColor);
 }
 
 .form-input {

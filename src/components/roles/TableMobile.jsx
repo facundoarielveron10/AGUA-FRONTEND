@@ -89,7 +89,8 @@ function RoleCard({ rol, onOpenDeleteRoleModal, handleActive, canExecute }) {
                             ) : null}
                             {canExecute("DELETE_ROLE") &&
                             rol.name !== "ROLE_ADMIN" &&
-                            rol.name !== "ROLE_USER" ? (
+                            rol.name !== "ROLE_USER" &&
+                            rol.name !== "ROLE_DELIVERY" ? (
                                 <button
                                     onClick={() => onOpenDeleteRoleModal(rol)}
                                     className="list-button-table list-delete button"

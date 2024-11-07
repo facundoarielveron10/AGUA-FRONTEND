@@ -49,6 +49,20 @@ export default function NavbarMobile({ url }) {
                                 Inicio
                             </a>
                         </li>
+                        {canExecute("GET_ORDERS_USER") ? (
+                            <li>
+                                <a
+                                    className={`${
+                                        url === "/orders-user"
+                                            ? "navbar-link-active"
+                                            : ""
+                                    }`}
+                                    href="/orders-user"
+                                >
+                                    Mis Pedidos
+                                </a>
+                            </li>
+                        ) : null}
                         {canExecute("GET_USERS") ? (
                             <li>
                                 <a

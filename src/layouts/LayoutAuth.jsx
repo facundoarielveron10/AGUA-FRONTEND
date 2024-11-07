@@ -14,6 +14,8 @@ import "@styles/list.css";
 import "@styles/modal.css";
 import "@styles/darkmode.css";
 import "@styles/home/home.css";
+import "@styles/home/order.css";
+import "@styles/orders/orders.css";
 import "@styles/profile/profile.css";
 import "@styles/profile/address.css";
 

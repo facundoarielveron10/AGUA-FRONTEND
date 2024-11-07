@@ -24,6 +24,14 @@ export default function Navbar() {
                 <div className="navbar-actions">
                     {/* LINKS */}
                     <div className="navbar-links">
+                        <a className="navbar-link" href="/">
+                            Inicio
+                        </a>
+                        {canExecute("GET_ORDERS_USER") && (
+                            <a className="navbar-link" href="/orders-user">
+                                Mis Pedidos
+                            </a>
+                        )}
                         {canExecute("GET_ROLES") && (
                             <a className="navbar-link" href="/roles">
                                 Roles

@@ -104,7 +104,7 @@ export default function Address() {
             resetValues();
             onCloseCreateAddressModal();
         } catch (error) {
-            errorResponse(error);
+            toast.error(errorResponse(error));
         }
     };
 
@@ -148,7 +148,7 @@ export default function Address() {
             resetValues();
             onCloseEditAddressModal();
         } catch (error) {
-            errorResponse(error);
+            toast.error(errorResponse(error));
         }
     };
 
@@ -170,7 +170,7 @@ export default function Address() {
             toast.success(data);
             onCloseDeleteAddressModal();
         } catch (error) {
-            errorResponse(error);
+            toast.error(errorResponse(error));
         }
     };
 
@@ -289,7 +289,7 @@ function AddressCard({
                             className="list-button-table list-edit button"
                             onClick={() => onOpenEditAddressModal(direction)}
                         >
-                            <MdModeEdit className="list-button-table-icon" />
+                            <MdModeEdit className="list-button-table-icon-medium" />
                         </button>
                     )}
                     {canExecute("DELETE_ADDRESS") && (
@@ -298,7 +298,7 @@ function AddressCard({
                             onClick={() => onOpenDeleteAddressModal(direction)}
                             className="list-button-table list-delete button"
                         >
-                            <MdDelete className="list-button-table-icon" />
+                            <MdDelete className="list-button-table-icon-medium" />
                         </button>
                     )}
                     <a
@@ -309,7 +309,7 @@ function AddressCard({
                         rel="noopener noreferrer"
                         className="list-button-table button"
                     >
-                        <MdLocationPin className="list-button-table-icon" />
+                        <MdLocationPin className="list-button-table-icon-medium" />
                     </a>
                 </div>
             </div>

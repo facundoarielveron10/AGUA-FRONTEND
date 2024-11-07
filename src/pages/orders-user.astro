@@ -1,0 +1,21 @@
+---
+// AUTH
+import { isLoggedIn } from '../utils/verifyAuth';
+
+// COMPONENTS
+import Layout from '../layouts/Layout.astro';
+import ListOrdersUser from '../components/orders/OrdersUser.jsx';
+import LayoutAuth from '../layouts/LayoutAuth';
+
+// REDIRECT
+const token = Astro.cookies.get("AUTH_TOKEN");
+if (!isLoggedIn(token)) {
+	return Astro.redirect("/login")
+}
+---
+
+<Layout title="Mis Pedidos - Cooperativa O'Brein">
+	<LayoutAuth client:only="react" action="GET_ORDERS_USER">
+		<ListOrdersUser client:only="react"/>
+	</LayoutAuth>
+</Layout>

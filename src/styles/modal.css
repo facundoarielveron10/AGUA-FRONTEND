@@ -36,6 +36,14 @@
     background-color: var(--colorDeleteDark);
 }
 
+.modal-confirm {
+    background-color: var(--colorConfirm);
+}
+
+.modal-confirm:hover {
+    background-color: var(--colorConfirmDark);
+}
+
 .modal-select {
     width: 100%;
     padding: 0.5rem;

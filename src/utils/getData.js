@@ -8,9 +8,27 @@ import { errorResponse } from "./error";
 import clientAxios from "../config/ClientAxios";
 
 export const getTypeActions = () => {
-    const types = ["Usuarios", "Roles", "Pedidos", "Direcciones"];
+    const types = [
+        "Usuarios",
+        "Roles",
+        "Pedidos",
+        "Direcciones",
+        "Repartidores",
+    ];
 
     return types;
+};
+
+export const getStatuses = () => {
+    const statuses = [
+        { name: "PENDING", value: "Pendiente" },
+        { name: "CONFIRMED", value: "Confirmado" },
+        { name: "DELIVERED", value: "Entregado" },
+        { name: "CANCELLED", value: "Cancelado" },
+        { name: "ROAD", value: "En Camino" },
+    ];
+
+    return statuses;
 };
 
 export const getSections = () => {

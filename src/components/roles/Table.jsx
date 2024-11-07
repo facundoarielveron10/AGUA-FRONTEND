@@ -37,7 +37,8 @@ export default function Table({ roles, onOpenDeleteRoleModal, handleActive }) {
                                             ) : null}
                                             {canExecute("DELETE_ROLE") &&
                                             rol.name !== "ROLE_ADMIN" &&
-                                            rol.name !== "ROLE_USER" ? (
+                                            rol.name !== "ROLE_USER" &&
+                                            rol.name !== "ROLE_DELIVERY" ? (
                                                 <button
                                                     onClick={() =>
                                                         onOpenDeleteRoleModal(

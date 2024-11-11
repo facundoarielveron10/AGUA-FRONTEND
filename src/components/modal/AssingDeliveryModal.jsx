@@ -14,10 +14,11 @@ export default function AssingDeliveryModal({
     assingDeliveryModal,
     onCloseAssingDeliveryModal,
     handleAssingDelivery,
+    delivery,
+    setDelivery,
 }) {
     // STATES
     const [deliveries, setDeliveries] = useState([]);
-    const [delivery, setDelivery] = useState("");
 
     // FUNCTIONS
     const getDeliveries = async () => {
@@ -33,6 +34,8 @@ export default function AssingDeliveryModal({
     useEffect(() => {
         if (assingDeliveryModal) {
             getDeliveries();
+        } else {
+            setDelivery("");
         }
     }, [assingDeliveryModal]);
 

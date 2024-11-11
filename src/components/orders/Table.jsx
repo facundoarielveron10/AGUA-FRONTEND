@@ -10,6 +10,10 @@ import {
 import { MdCancel } from "react-icons/md";
 import { FaEye, FaCheckCircle } from "react-icons/fa";
 import { TbTruckDelivery } from "react-icons/tb";
+import { BsCalendar2Date, BsFillCalendar2DateFill } from "react-icons/bs";
+
+// COMPONENTS
+import DatePicker from "react-datepicker";
 
 // ZUSTAND
 import { useLoginStore } from "src/zustand/loginStore";
@@ -19,6 +23,15 @@ export default function Table({
     statuses,
     selectedStatus,
     handleStatusChange,
+    advancedDates,
+    handleAdvancedDates,
+    date,
+    setDate,
+    startDate,
+    setStartDate,
+    endDate,
+    setEndDate,
+    handleFilterDate,
     onOpenCancelOrderModal,
     onOpenConfirmOrderModal,
     onOpenShowOrderModal,
@@ -33,6 +46,81 @@ export default function Table({
                 <div className="list-header">
                     <h2 className="list-subtitle">Pedidos</h2>
                     <div className="list-filter">
+                        {!advancedDates ? (
+                            <div className="list-filter-date">
+                                {/* FECHA */}
+                                <div className="list-date-picker">
+                                    <label>Fecha</label>
+                                    <DatePicker
+                                        selected={date}
+                                        onChange={(date) => setDate(date)}
+                                        dateFormat="dd/MM/yyyy"
+                                        isClearable
+                                        placeholderText="Selecciona una fecha"
+                                        className="list-date"
+                                    />
+                                </div>
+                                <p
+                                    className="list-date-advanced"
+                                    onClick={() => handleAdvancedDates(true)}
+                                >
+                                    <BsCalendar2Date className="list-date-advanced-icon" />
+                                    <BsFillCalendar2DateFill className="list-date-advanced-icon" />
+                                </p>
+                                <button
+                                    type="button"
+                                    className="button"
+                                    onClick={handleFilterDate}
+                                >
+                                    Filtrar
+                                </button>
+                            </div>
+                        ) : null}
+                        {advancedDates ? (
+                            <div className="list-filter-dates">
+                                {/* FECHA DESDE */}
+                                <div className="list-date-picker">
+                                    <label>Fecha Desde:</label>
+                                    <DatePicker
+                                        selected={startDate}
+                                        onChange={(date) => setStartDate(date)}
+                                        dateFormat="dd/MM/yyyy"
+                                        isClearable
+                                        placeholderText="Selecciona una fecha"
+                                        className="list-date"
+                                        maxDate={endDate}
+                                    />
+                                </div>
+                                {/* FECHA HASTA */}
+                                <div className="list-date-picker">
+                                    <label>Fecha Hasta:</label>
+                                    <DatePicker
+                                        selected={endDate}
+                                        onChange={(date) => setEndDate(date)}
+                                        dateFormat="dd/MM/yyyy"
+                                        isClearable
+                                        placeholderText="Selecciona una fecha"
+                                        className="list-date"
+                                        minDate={startDate}
+                                    />
+                                </div>
+                                <p
+                                    className="list-date-advanced"
+                                    onClick={() => handleAdvancedDates(false)}
+                                >
+                                    <BsCalendar2Date className="list-date-advanced-icon" />
+                                </p>
+                                <div className="list-date-button">
+                                    <button
+                                        type="button"
+                                        className="button"
+                                        onClick={handleFilterDate}
+                                    >
+                                        Filtrar
+                                    </button>
+                                </div>
+                            </div>
+                        ) : null}
                         <select
                             className="list-select"
                             id="statusFilter"
@@ -93,7 +181,9 @@ export default function Table({
                                                     className="button list-button-table list-button-icon"
                                                     type="button"
                                                     onClick={() =>
-                                                        onOpenAssingDeliveryModal()
+                                                        onOpenAssingDeliveryModal(
+                                                            order
+                                                        )
                                                     }
                                                 >
                                                     <TbTruckDelivery className="list-button-table-icon-big" />

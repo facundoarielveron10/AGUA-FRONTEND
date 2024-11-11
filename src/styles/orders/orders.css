@@ -74,3 +74,7 @@
 .order-cancelled {
     background-color: #ff0000;
 }
+
+.order-waiting {
+    background-color: #595959;
+}

@@ -57,6 +57,8 @@ export const formatStatus = (status) => {
             return "Confirmado";
         case "CANCELLED":
             return "Cancelado";
+        case "WAITING":
+            return "En Espera";
         default:
             return "Desconocido";
     }
@@ -74,6 +76,8 @@ export const formatStatusColor = (status) => {
             return "order-confirmed";
         case "CANCELLED":
             return "order-cancelled";
+        case "WAITING":
+            return "order-waiting";
         default:
             return "order-unknown";
     }

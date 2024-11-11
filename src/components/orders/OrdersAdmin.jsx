@@ -25,7 +25,7 @@ import Alert from "../Alert";
 // RESPONSIVE
 import { useMediaQuery } from "react-responsive";
 
-export default function Orders() {
+export default function OrdersAdmin() {
     // STATES
     const [loading, setLoading] = useState(false);
     const [orders, setOrders] = useState([]);
@@ -38,6 +38,7 @@ export default function Orders() {
     const [showOrderModal, setShowOrderModal] = useState(false);
     const [assingDeliveryModal, setAssingDeliveryModal] = useState(false);
     const [order, setOrder] = useState();
+    const [delivery, setDelivery] = useState("");
 
     // EFFECTS
     useEffect(() => {
@@ -94,8 +95,20 @@ export default function Orders() {
     const handleAssingDelivery = async (e) => {
         e.preventDefault();
 
+        if (!delivery) {
+            toast.error("Debes seleccionar un repartidor");
+            return;
+        }
+
         try {
-            console.log("handleAssingDelivery");
+            const { data } = await clientAxios.post("/order/assing-delivery", {
+                orderId: order?.id,
+                deliveryId: delivery,
+            });
+
+            toast.success(data);
+            getOrders();
+            onCloseAssingDeliveryModal();
         } catch (error) {
             errorResponse(error);
         }
@@ -147,11 +160,13 @@ export default function Orders() {
         setShowOrderModal(false);
     };
 
-    const onOpenAssingDeliveryModal = () => {
+    const onOpenAssingDeliveryModal = (order) => {
+        setOrder(order);
         setAssingDeliveryModal(true);
     };
 
     const onCloseAssingDeliveryModal = () => {
+        setOrder({});
         setAssingDeliveryModal(false);
     };
 
@@ -237,6 +252,9 @@ export default function Orders() {
             <AssingDeliveryModal
                 assingDeliveryModal={assingDeliveryModal}
                 onCloseAssingDeliveryModal={onCloseAssingDeliveryModal}
+                handleAssingDelivery={handleAssingDelivery}
+                delivery={delivery}
+                setDelivery={setDelivery}
             />
         </>
     );

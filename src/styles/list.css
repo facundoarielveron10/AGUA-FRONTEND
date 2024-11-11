@@ -31,9 +31,69 @@
 
 .list-filter {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
+    gap: 1rem;
+}
+
+.list-filter-date {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 1rem;
+}
+
+.list-filter-dates {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 1rem;
+}
+
+.list-date {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--backgroundInput);
+    color: var(--textColor);
+    transition: background-color 0.3s;
+}
+
+.list-date:hover {
+    background-color: var(--backgroundInputHover);
+}
+
+.list-date-picker {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.list-date-picker label {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--textColor);
+    margin-bottom: 0.5rem;
+}
+
+.list-date-advanced {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    color: var(--primaryColor);
+    transition: color 0.3s;
+    margin: 0;
+}
+
+.list-date-advanced:hover {
+    color: var(--primaryDarkColor);
+}
+
+.list-date-advanced-icon {
+    width: 30px;
+    height: 30px;
 }
 
 .list-select {
@@ -202,8 +262,43 @@
 
 .list-mobile-filter {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.list-mobile-filter-date {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 0.5rem;
+}
+
+.list-mobile-filter-dates {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 0.5rem;
+}
+
+.list-mobile-date-picker {
+    width: 100%;
+}
+
+.list-mobile-date {
+    width: 96.5%;
+}
+
+.list-date-button,
+.list-date-button button,
+.list-mobile-date-button,
+.list-mobile-date-button button {
     width: 100%;
 }
 

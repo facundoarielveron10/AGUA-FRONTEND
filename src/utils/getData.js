@@ -26,6 +26,7 @@ export const getStatuses = () => {
         { name: "DELIVERED", value: "Entregado" },
         { name: "CANCELLED", value: "Cancelado" },
         { name: "ROAD", value: "En Camino" },
+        { name: "WAITING", value: "En Espera" },
     ];
 
     return statuses;

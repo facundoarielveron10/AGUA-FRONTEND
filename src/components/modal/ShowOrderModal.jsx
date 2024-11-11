@@ -51,6 +51,12 @@ export default function ShowOrderModal({
                     <p className="modal-paragraph">
                         Email del Cliente: <span>{orderShow?.User?.email}</span>
                     </p>
+                    {orderShow?.Delivery && (
+                        <p className="modal-paragraph">
+                            Repartidor: <span>{orderShow?.Delivery?.name}</span>{" "}
+                            <span>{orderShow?.Delivery?.lastname}</span>
+                        </p>
+                    )}
                 </div>
             </Modal>
         </div>

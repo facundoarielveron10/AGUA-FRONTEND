@@ -3,7 +3,8 @@ import { useLoginStore } from "src/zustand/loginStore";
 
 // COMPONENTS
 import CreateOrder from "../orders/CreateOrder";
-import Orders from "../orders/Orders";
+import OrdersAdmin from "../orders/OrdersAdmin";
+import OrdersDelivery from "../orders/OrdersDelivery";
 
 export default function Home() {
     // ZUSTAND
@@ -14,8 +15,10 @@ export default function Home() {
             <div className="home-container">
                 {/* CREACION DE PEDIDOS */}
                 {canExecute("CREATE_ORDER") && <CreateOrder />}
-                {/* PEDIDOS */}
-                {canExecute("ADMIN_ORDERS") && <Orders />}
+                {/* PEDIDOS ADMINISTRADOR */}
+                {canExecute("ADMIN_ORDERS") && <OrdersAdmin />}
+                {/* PEDIDOS REPARTIDOR */}
+                {canExecute("DELIVERY_ORDERS") && <OrdersDelivery />}
             </div>
         </div>
     );

@@ -547,6 +547,7 @@ template {
 
 /* CUSTOM STYLES */
 .title {
+    text-align: center;
     font-weight: bold;
     text-transform: uppercase;
     color: var(--textColor);

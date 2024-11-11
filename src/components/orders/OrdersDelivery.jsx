@@ -14,42 +14,30 @@ import Pagination from "../Pagination";
 import Table from "./Table";
 import TableMobile from "./TableMobile";
 import CancelOrderModal from "../modal/CancelOrderModal";
+import ConfirmOrderModal from "../modal/ConfirmOrderModal";
+import ShowOrderModal from "../modal/ShowOrderModal";
+import AssingDeliveryModal from "../modal/AssingDeliveryModal";
 
 // ALERTS
 import { toast } from "react-toastify";
 import Alert from "../Alert";
 
-// ZUSTAND
-import { useLoginStore } from "../../zustand/loginStore";
-
 // RESPONSIVE
 import { useMediaQuery } from "react-responsive";
 
-export default function OrdersUser() {
-    // STATES
-    const [loading, setLoading] = useState(false);
-    const [orders, setOrders] = useState([]);
-    const [selectedStatus, setSelectedStatus] = useState("");
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
-    const [limit] = useState(10);
-    const [cancelOrderModal, setCancelOrderModal] = useState(false);
-    const [orderCancel, setOrderCancel] = useState({});
+// ZUSTAND
+import { useLoginStore } from "src/zustand/loginStore";
 
+export default function OrdersDelivery() {
     // ZUSTAND
     const { user } = useLoginStore();
-
-    // EFFECTS
-    useEffect(() => {
-        getOrders();
-    }, [currentPage, selectedStatus]);
 
     // FUNCTIONS
     const getOrders = async () => {
         try {
             setLoading(true);
             const { data } = await clientAxios.get(
-                `/order/orders/orders-user/${user?.id}?page=${currentPage}&limit=${limit}&status=${selectedStatus}`
+                `/order/orders/orders-delivery/${user?.id}?page=${currentPage}&limit=${limit}&status=${selectedStatus}&startDate=${startDate}&endDate=${endDate}&date=${date}`
             );
             setOrders(data.orders);
             setTotalPages(data.totalPages);
@@ -60,19 +48,8 @@ export default function OrdersUser() {
         }
     };
 
-    const handleCancelOrder = async (e) => {
-        e.preventDefault();
-        try {
-            const { data } = await clientAxios.post("/order/cancel-order", {
-                orderId: orderCancel?.id,
-            });
-
-            toast.success(data);
-            getOrders();
-            onCloseCancelOrderModal();
-        } catch (error) {
-            errorResponse(error);
-        }
+    const handleFilterDate = () => {
+        getOrders();
     };
 
     const handleNextPage = () => {
@@ -91,27 +68,41 @@ export default function OrdersUser() {
         setSelectedStatus(e.target.value);
     };
 
-    const onOpenCancelOrderModal = (order) => {
-        setOrderCancel(order);
-        setCancelOrderModal(true);
+    const handleAdvancedDates = (value) => {
+        setDate(null);
+        setStartDate(null);
+        setEndDate(null);
+        setAdvancedDates(value);
     };
 
-    const onCloseCancelOrderModal = () => {
-        setOrderCancel({});
-        setCancelOrderModal(false);
-    };
+    // STATES
+    const [loading, setLoading] = useState(false);
+    const [orders, setOrders] = useState([]);
+    const [selectedStatus, setSelectedStatus] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [advancedDates, setAdvancedDates] = useState(false);
+    const [date, setDate] = useState(null);
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
+    const [limit] = useState(10);
 
     // RESPONSIVE
     const isDesktop = useMediaQuery({ query: "(min-width: 1080px)" });
+
+    // EFFECTS
+    useEffect(() => {
+        getOrders();
+    }, [currentPage, selectedStatus]);
 
     return (
         <>
             <Alert />
             <div className="orders">
-                <h1 className="title">Mis Pedidos</h1>
+                <h1 className="title">Administracion de Reparto de Pedidos</h1>
                 <p className="paragraph">
                     En este listado se pueden ver todos los pedidos realizados
-                    por el usuario.
+                    por los usuarios
                 </p>
 
                 {loading ? (
@@ -126,7 +117,15 @@ export default function OrdersUser() {
                                 statuses={getStatuses()}
                                 selectedStatus={selectedStatus}
                                 handleStatusChange={handleStatusChange}
-                                onOpenCancelOrderModal={onOpenCancelOrderModal}
+                                advancedDates={advancedDates}
+                                handleAdvancedDates={handleAdvancedDates}
+                                date={date}
+                                setDate={setDate}
+                                startDate={startDate}
+                                setStartDate={setStartDate}
+                                endDate={endDate}
+                                setEndDate={setEndDate}
+                                handleFilterDate={handleFilterDate}
                             />
                         ) : (
                             <TableMobile
@@ -134,7 +133,15 @@ export default function OrdersUser() {
                                 statuses={getStatuses()}
                                 selectedStatus={selectedStatus}
                                 handleStatusChange={handleStatusChange}
-                                onOpenCancelOrderModal={onOpenCancelOrderModal}
+                                advancedDates={advancedDates}
+                                handleAdvancedDates={handleAdvancedDates}
+                                date={date}
+                                setDate={setDate}
+                                startDate={startDate}
+                                setStartDate={setStartDate}
+                                endDate={endDate}
+                                setEndDate={setEndDate}
+                                handleFilterDate={handleFilterDate}
                             />
                         )}
 
@@ -149,12 +156,6 @@ export default function OrdersUser() {
                     </div>
                 )}
             </div>
-            <CancelOrderModal
-                cancelOrderModal={cancelOrderModal}
-                onCloseCancelOrderModal={onCloseCancelOrderModal}
-                handleCancelOrder={handleCancelOrder}
-                orderCancel={orderCancel}
-            />
         </>
     );
 }

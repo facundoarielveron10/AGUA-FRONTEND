@@ -22,6 +22,7 @@ import "@styles/profile/address.css";
 // CSS (External)
 import "react-toastify/dist/ReactToastify.css";
 import "react-responsive-modal/styles.css";
+import "react-datepicker/dist/react-datepicker.css";
 
 // REACT
 import { useEffect } from "react";

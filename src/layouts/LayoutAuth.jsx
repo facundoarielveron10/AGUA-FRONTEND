@@ -18,11 +18,13 @@ import "@styles/home/order.css";
 import "@styles/orders/orders.css";
 import "@styles/profile/profile.css";
 import "@styles/profile/address.css";
+import "@styles/orders/map.css";
 
 // CSS (External)
 import "react-toastify/dist/ReactToastify.css";
 import "react-responsive-modal/styles.css";
 import "react-datepicker/dist/react-datepicker.css";
+import "leaflet/dist/leaflet.css";
 
 // REACT
 import { useEffect } from "react";

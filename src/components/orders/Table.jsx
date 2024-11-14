@@ -9,14 +9,15 @@ import {
 // ICONS
 import { MdCancel } from "react-icons/md";
 import { FaEye, FaCheckCircle } from "react-icons/fa";
-import { TbTruckDelivery } from "react-icons/tb";
 import { BsCalendar2Date, BsFillCalendar2DateFill } from "react-icons/bs";
+import { TbTruckDelivery, TbMapShare } from "react-icons/tb";
 
 // COMPONENTS
 import DatePicker from "react-datepicker";
 
 // ZUSTAND
 import { useLoginStore } from "src/zustand/loginStore";
+import { useDeliveryStore } from "src/zustand/deliveryStore";
 
 export default function Table({
     orders,
@@ -32,13 +33,23 @@ export default function Table({
     endDate,
     setEndDate,
     handleFilterDate,
+    isChecked,
     onOpenCancelOrderModal,
     onOpenConfirmOrderModal,
     onOpenShowOrderModal,
     onOpenAssingDeliveryModal,
+    onOpenGenerateRoute,
+    ordersGenerateRoute,
+    handleGenerateRoute,
 }) {
     // ZUSTAND
     const { canExecute } = useLoginStore();
+    const { route, orders: ordersMap } = useDeliveryStore();
+
+    // FUNCTIONS
+    const isMapInclude = (orderId) => {
+        return ordersMap.some((orderMap) => orderMap?.id === orderId);
+    };
 
     return (
         <div className="list-container">
@@ -46,6 +57,22 @@ export default function Table({
                 <div className="list-header">
                     <h2 className="list-subtitle">Pedidos</h2>
                     <div className="list-filter">
+                        {route?.length > 0 && canExecute("GET_ORDER_MAP") ? (
+                            <a
+                                href="/order-map"
+                                className="button list-button-table list-button-icon"
+                            >
+                                <TbMapShare className="list-button-table-icon-big" />
+                            </a>
+                        ) : null}
+                        {ordersGenerateRoute?.length > 0 ? (
+                            <button
+                                onClick={() => onOpenGenerateRoute()}
+                                className="button list-button-table list-button-icon"
+                            >
+                                <TbTruckDelivery className="list-button-table-icon-big" />
+                            </button>
+                        ) : null}
                         {!advancedDates ? (
                             <div className="list-filter-date">
                                 {/* FECHA */}
@@ -156,7 +183,14 @@ export default function Table({
                         </thead>
                         <tbody>
                             {orders.map((order, index) => (
-                                <tr key={index}>
+                                <tr
+                                    className={`${
+                                        isMapInclude(order?.Address?.id)
+                                            ? "list-table-active"
+                                            : ""
+                                    }`}
+                                    key={index}
+                                >
                                     <td>{order?.id}</td>
                                     <td>{formatDate(order?.createdAt)}</td>
                                     <td>{order?.amount}</td>
@@ -230,6 +264,22 @@ export default function Table({
                                             >
                                                 <FaEye className="list-button-table-icon-big" />
                                             </button>
+                                        ) : null}
+                                        {canExecute("GENERATE_ROUTE") ? (
+                                            <input
+                                                className="list-checkbox"
+                                                type="checkbox"
+                                                id={order?.id}
+                                                checked={isChecked(
+                                                    order.Address
+                                                )}
+                                                onChange={(e) =>
+                                                    handleGenerateRoute(
+                                                        e.target.checked,
+                                                        order.Address
+                                                    )
+                                                }
+                                            />
                                         ) : null}
                                     </td>
                                 </tr>

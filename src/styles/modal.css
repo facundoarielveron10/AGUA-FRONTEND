@@ -77,3 +77,39 @@
 .modal-group {
     margin: 0.5rem 0;
 }
+
+.modal-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.modal-orders {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem;
+    overflow-y: scroll;
+    height: 450px;
+}
+
+.modal-order {
+    border-radius: 8px;
+    border: 1px solid var(--backgroundColor);
+    background-color: var(--backgroundColor);
+    padding: 0.5rem;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.modal-order p {
+    color: var(--textColor);
+}
+
+.modal-order span {
+    font-weight: bold;
+    text-transform: uppercase;
+}

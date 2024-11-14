@@ -148,6 +148,11 @@
     background-color: var(--backgroundInput);
 }
 
+.list-table .list-table-active {
+    font-weight: bold;
+    color: var(--primaryColor);
+}
+
 .list-head-actions {
     display: flex;
     justify-content: flex-end;
@@ -392,4 +397,39 @@
     font-size: 0.9rem;
     padding: 0;
     text-decoration: underline;
+}
+
+.list-checkbox {
+    appearance: none;
+    height: 18px;
+    width: 18px;
+    border: 2px solid var(--primaryColor);
+    border-radius: 4px;
+    background-color: var(--backgroundInput);
+    cursor: pointer;
+    position: relative;
+    margin-right: 1rem;
+}
+
+.list-checkbox:checked {
+    background-color: var(--primaryDarkColor);
+    border-color: var(--primaryDarkColor);
+}
+
+.list-checkbox::after {
+    content: "";
+    display: block;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    background-color: var(--backgroundCard);
+    clip-path: polygon(14% 44%, 0% 65%, 48% 100%, 100% 16%, 80% 0%, 43% 77%);
+    transition: opacity 0.2s ease-in-out;
+    opacity: 0;
+}
+
+.list-checkbox:checked::after {
+    opacity: 1;
 }

@@ -32,6 +32,10 @@ export default function OrdersAdmin() {
     const [selectedStatus, setSelectedStatus] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [advancedDates, setAdvancedDates] = useState(false);
+    const [date, setDate] = useState(null);
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
     const [limit] = useState(10);
     const [cancelOrderModal, setCancelOrderModal] = useState(false);
     const [confirmOrderModal, setConfirmOrderModal] = useState(false);
@@ -112,6 +116,17 @@ export default function OrdersAdmin() {
         } catch (error) {
             errorResponse(error);
         }
+    };
+
+    const handleFilterDate = () => {
+        getOrders();
+    };
+
+    const handleAdvancedDates = (value) => {
+        setDate(null);
+        setStartDate(null);
+        setEndDate(null);
+        setAdvancedDates(value);
     };
 
     const handleNextPage = () => {
@@ -195,6 +210,15 @@ export default function OrdersAdmin() {
                                 statuses={getStatuses()}
                                 selectedStatus={selectedStatus}
                                 handleStatusChange={handleStatusChange}
+                                advancedDates={advancedDates}
+                                handleAdvancedDates={handleAdvancedDates}
+                                date={date}
+                                setDate={setDate}
+                                startDate={startDate}
+                                setStartDate={setStartDate}
+                                endDate={endDate}
+                                setEndDate={setEndDate}
+                                handleFilterDate={handleFilterDate}
                                 onOpenCancelOrderModal={onOpenCancelOrderModal}
                                 onOpenConfirmOrderModal={
                                     onOpenConfirmOrderModal

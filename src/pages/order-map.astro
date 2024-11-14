@@ -1,0 +1,21 @@
+---
+// AUTH
+import { isLoggedIn } from '../utils/verifyAuth';
+
+// COMPONENTS
+import Layout from '../layouts/Layout.astro';
+import MapOrder from "../components/orders/MapOrder";
+import LayoutAuth from '../layouts/LayoutAuth';
+
+// REDIRECT
+const token = Astro.cookies.get("AUTH_TOKEN");
+if (!isLoggedIn(token)) {
+	return Astro.redirect("/login")
+}
+---
+
+<Layout title="Mapa de Ordenes - Cooperativa O'Brein">
+	<LayoutAuth client:only="react" action="GET_ORDER_MAP">
+		<MapOrder client:only="react"/>
+	</LayoutAuth>
+</Layout>

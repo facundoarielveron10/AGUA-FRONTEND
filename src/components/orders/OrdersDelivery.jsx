@@ -13,13 +13,9 @@ import Spinner from "../Spinner";
 import Pagination from "../Pagination";
 import Table from "./Table";
 import TableMobile from "./TableMobile";
-import CancelOrderModal from "../modal/CancelOrderModal";
-import ConfirmOrderModal from "../modal/ConfirmOrderModal";
-import ShowOrderModal from "../modal/ShowOrderModal";
-import AssingDeliveryModal from "../modal/AssingDeliveryModal";
+import GenerateRouteModal from "../modal/GenerateRouteModal";
 
 // ALERTS
-import { toast } from "react-toastify";
 import Alert from "../Alert";
 
 // RESPONSIVE
@@ -31,6 +27,20 @@ import { useLoginStore } from "src/zustand/loginStore";
 export default function OrdersDelivery() {
     // ZUSTAND
     const { user } = useLoginStore();
+
+    // STATES
+    const [loading, setLoading] = useState(false);
+    const [orders, setOrders] = useState([]);
+    const [selectedStatus, setSelectedStatus] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [advancedDates, setAdvancedDates] = useState(false);
+    const [date, setDate] = useState(null);
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
+    const [limit] = useState(10);
+    const [ordersGenerateRoute, setOrdersGenerateRoute] = useState([]);
+    const [openGenerateRoute, setOpenGenerateRoute] = useState(false);
 
     // FUNCTIONS
     const getOrders = async () => {
@@ -75,17 +85,32 @@ export default function OrdersDelivery() {
         setAdvancedDates(value);
     };
 
-    // STATES
-    const [loading, setLoading] = useState(false);
-    const [orders, setOrders] = useState([]);
-    const [selectedStatus, setSelectedStatus] = useState("");
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
-    const [advancedDates, setAdvancedDates] = useState(false);
-    const [date, setDate] = useState(null);
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
-    const [limit] = useState(10);
+    // FUNCTIONS
+    const isChecked = (order) => {
+        return ordersGenerateRoute.some(
+            (orderData) => orderData?.id === order.id
+        );
+    };
+
+    const handleGenerateRoute = (checked, order) => {
+        if (checked) {
+            setOrdersGenerateRoute([...ordersGenerateRoute, order]);
+        } else {
+            setOrdersGenerateRoute(
+                ordersGenerateRoute.filter(
+                    (orderData) => orderData.id !== order.id
+                )
+            );
+        }
+    };
+
+    const onOpenGenerateRoute = () => {
+        setOpenGenerateRoute(true);
+    };
+
+    const onCloseGenerateRoute = () => {
+        setOpenGenerateRoute(false);
+    };
 
     // RESPONSIVE
     const isDesktop = useMediaQuery({ query: "(min-width: 1080px)" });
@@ -126,6 +151,10 @@ export default function OrdersDelivery() {
                                 endDate={endDate}
                                 setEndDate={setEndDate}
                                 handleFilterDate={handleFilterDate}
+                                isChecked={isChecked}
+                                ordersGenerateRoute={ordersGenerateRoute}
+                                handleGenerateRoute={handleGenerateRoute}
+                                onOpenGenerateRoute={onOpenGenerateRoute}
                             />
                         ) : (
                             <TableMobile
@@ -142,6 +171,9 @@ export default function OrdersDelivery() {
                                 endDate={endDate}
                                 setEndDate={setEndDate}
                                 handleFilterDate={handleFilterDate}
+                                ordersGenerateRoute={ordersGenerateRoute}
+                                handleGenerateRoute={handleGenerateRoute}
+                                onOpenGenerateRoute={onOpenGenerateRoute}
                             />
                         )}
 
@@ -156,6 +188,11 @@ export default function OrdersDelivery() {
                     </div>
                 )}
             </div>
+            <GenerateRouteModal
+                openGenerateRoute={openGenerateRoute}
+                onCloseGenerateRoute={onCloseGenerateRoute}
+                ordersGenerateRoute={ordersGenerateRoute}
+            />
         </>
     );
 }

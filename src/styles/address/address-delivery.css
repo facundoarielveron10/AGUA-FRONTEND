@@ -1,0 +1,29 @@
+.addressDelivery {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--backgroundColor);
+    padding: 5rem 2rem;
+}
+
+@media (min-width: 768px) {
+    .addressDelivery {
+        padding: 1.5rem 0;
+    }
+}
+
+.addressDelivery-button {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 0 2rem 2rem 0;
+    text-decoration: none;
+}
+
+.address-spinner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

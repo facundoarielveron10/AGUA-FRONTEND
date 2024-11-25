@@ -42,6 +42,11 @@ export default function Navbar() {
                                 Usuarios
                             </a>
                         )}
+                        {canExecute("GET_ADDRESS_DELIVERY") && (
+                            <a className="navbar-link" href="/address">
+                                Direcciones
+                            </a>
+                        )}
                         {canExecute("GET_PROFILE") && (
                             <a className="navbar-link" href="/profile">
                                 <FaUser className="navbar-profile" />

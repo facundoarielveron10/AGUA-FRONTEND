@@ -1,0 +1,21 @@
+---
+// AUTH
+import { isLoggedIn } from '../utils/verifyAuth';
+
+// COMPONENTS
+import Layout from '../layouts/Layout.astro';
+import AddressComponent from "../components/address/Address";
+import LayoutAuth from '../layouts/LayoutAuth';
+
+// REDIRECT
+const token = Astro.cookies.get("AUTH_TOKEN");
+if (!isLoggedIn(token)) {
+	return Astro.redirect("/login")
+}
+---
+
+<Layout title="Direcciones - Cooperativa O'Brein">
+	<LayoutAuth client:only="react" action="GET_ADDRESS_DELIVERY">
+		<AddressComponent client:only="react"/>
+	</LayoutAuth>
+</Layout>

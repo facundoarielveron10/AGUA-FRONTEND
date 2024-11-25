@@ -8,6 +8,7 @@ import "@styles/roles/roles.css";
 import "@styles/roles/create-edit.css";
 import "@styles/users/users.css";
 import "@styles/users/create-edit.css";
+import "@styles/address/create-edit.css";
 import "@styles/pagination.css";
 import "@styles/search.css";
 import "@styles/list.css";
@@ -19,6 +20,7 @@ import "@styles/orders/orders.css";
 import "@styles/profile/profile.css";
 import "@styles/profile/address.css";
 import "@styles/orders/map.css";
+import "@styles/address/address-delivery.css";
 
 // CSS (External)
 import "react-toastify/dist/ReactToastify.css";

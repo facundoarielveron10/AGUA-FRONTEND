@@ -18,12 +18,14 @@ export const useDeliveryStore = create(
             bounds: null,
             markers: [],
             orders: [],
-            generateRoute: async (orders) => {
+            startCoordinates: null,
+            generateRoute: async (orders, addressStart) => {
                 try {
                     const { data } = await clientAxios.post(
                         "/order/generate-route",
                         {
                             orders,
+                            addressStart,
                         }
                     );
 
@@ -40,6 +42,7 @@ export const useDeliveryStore = create(
                         route: decodedRoute,
                         bounds: leafletBounds,
                         orders: orders,
+                        startCoordinates: [data.startLat, data.startLon],
                     });
 
                     const invertedMarkers = data.metadata.query.coordinates.map(
@@ -50,11 +53,17 @@ export const useDeliveryStore = create(
 
                     window.location.assign("/order-map");
                 } catch (error) {
-                    errorResponse(error);
+                    return errorResponse(error);
                 }
             },
             deleteRoute: () => {
-                set({ route: [], bounds: null, markers: [], orders: [] });
+                set({
+                    route: [],
+                    bounds: null,
+                    markers: [],
+                    orders: [],
+                    startCoordinates: null,
+                });
                 window.location.reload();
             },
         }),
@@ -65,6 +74,7 @@ export const useDeliveryStore = create(
                 bounds: state.bounds,
                 markers: state.markers,
                 orders: state.orders,
+                startCoordinates: state.startCoordinates,
             }),
         }
     )

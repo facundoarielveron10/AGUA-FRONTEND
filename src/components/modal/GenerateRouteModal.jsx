@@ -1,5 +1,5 @@
 // REACT
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // MODAL
 import Modal from "react-responsive-modal";
@@ -9,6 +9,12 @@ import { errorResponse } from "src/utils/error";
 
 // ZUSTAND
 import { useDeliveryStore } from "src/zustand/deliveryStore";
+
+// AXIOS
+import clientAxios from "src/config/ClientAxios";
+
+// ALERTS
+import { toast } from "react-toastify";
 
 // COMPONENTS
 import Spinner from "../Spinner";
@@ -20,6 +26,8 @@ export default function GenerateRouteModal({
 }) {
     // STATES
     const [loading, setLoading] = useState(false);
+    const [address, setAddress] = useState([]);
+    const [addressStart, setAddressStart] = useState("");
 
     // ZUSTAND
     const { generateRoute } = useDeliveryStore();
@@ -28,11 +36,40 @@ export default function GenerateRouteModal({
     const generateRouteData = async () => {
         try {
             setLoading(true);
-            await generateRoute(ordersGenerateRoute);
+            const data = await generateRoute(ordersGenerateRoute, addressStart);
+
+            if (data) {
+                toast.error(data);
+                return;
+            }
         } catch (error) {
-            errorResponse(error);
+            toast.error(errorResponse(error));
+        } finally {
+            setLoading(false);
         }
     };
+
+    const getAddress = async () => {
+        setLoading(true);
+        try {
+            const { data } = await clientAxios.get(
+                "/directions/address-delivery"
+            );
+
+            setAddress(data);
+        } catch (error) {
+            toast.error(errorResponse(error));
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // EFFECTS
+    useEffect(() => {
+        if (openGenerateRoute) {
+            getAddress();
+        }
+    }, [openGenerateRoute]);
 
     return (
         <div>
@@ -54,6 +91,34 @@ export default function GenerateRouteModal({
                         </div>
                     ) : (
                         <>
+                            <select
+                                className="modal-select"
+                                value={addressStart}
+                                onChange={(e) =>
+                                    setAddressStart(e.target.value)
+                                }
+                            >
+                                <option
+                                    disabled
+                                    className="modal-option"
+                                    value=""
+                                >
+                                    Seleccionar Direccion
+                                </option>
+                                {address.length > 0
+                                    ? address.map((address, index) => (
+                                          <option
+                                              key={index}
+                                              className="modal-option"
+                                              value={address?.id}
+                                          >
+                                              {address?.address},{" "}
+                                              {address?.city},{" "}
+                                              {address?.country}
+                                          </option>
+                                      ))
+                                    : null}
+                            </select>
                             <h3 className="modal-title">Pedidos</h3>
                             <div className="modal-orders">
                                 {ordersGenerateRoute.map((order, index) => (

@@ -213,7 +213,7 @@ export default function Users() {
                 </p>
 
                 {loading ? (
-                    <div className="users-spinner">
+                    <div className="spinner">
                         <Spinner />
                     </div>
                 ) : (

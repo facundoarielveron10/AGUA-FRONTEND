@@ -73,7 +73,7 @@ export default function Create() {
                     de la nueva direccion.
                 </p>
                 {loading ? (
-                    <div className="form-spinner">
+                    <div className="spinner">
                         <Spinner />
                     </div>
                 ) : (

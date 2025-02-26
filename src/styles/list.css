@@ -153,6 +153,17 @@
     color: var(--primaryColor);
 }
 
+.list-table-pines {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.list-table-pin {
+    color: var(--primaryColor);
+}
+
 .list-head-actions {
     display: flex;
     justify-content: flex-end;
@@ -323,7 +334,7 @@
     align-items: flex-start;
     gap: 1rem;
     background-color: var(--backgroundColor);
-    border: 1px solid var(--primaryColor);
+    border: 1px solid var(--backgroundInput);
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
         rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
         rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
@@ -332,7 +343,11 @@
     width: 100%;
 }
 
-.list-mobile-field {
+.list-mobile-active {
+    border: 1px solid var(--primaryColor);
+}
+
+.list-mobile-fields .list-mobile-field {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -432,4 +447,11 @@
 
 .list-checkbox:checked::after {
     opacity: 1;
+}
+
+.list-mobile-maps {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }

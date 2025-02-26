@@ -78,14 +78,6 @@
     margin: 0.5rem 0;
 }
 
-.modal-spinner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 2rem;
-}
-
 .modal-orders {
     display: flex;
     flex-direction: column;

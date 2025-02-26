@@ -14,6 +14,7 @@ import Pagination from "../Pagination";
 import Table from "./Table";
 import TableMobile from "./TableMobile";
 import GenerateRouteModal from "../modal/GenerateRouteModal";
+import ChangeStateOrders from "../modal/ChangeStateOrders";
 
 // ALERTS
 import Alert from "../Alert";
@@ -39,8 +40,10 @@ export default function OrdersDelivery() {
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [limit] = useState(10);
-    const [ordersGenerateRoute, setOrdersGenerateRoute] = useState([]);
+    const [ordersDeliveryAddress, setOrdersDeliveryAddress] = useState([]);
+    const [ordersDelivery, setOrdersDelivery] = useState([]);
     const [openGenerateRoute, setOpenGenerateRoute] = useState(false);
+    const [openChangeStates, setOpenChangeStates] = useState(false);
 
     // FUNCTIONS
     const getOrders = async () => {
@@ -87,18 +90,28 @@ export default function OrdersDelivery() {
 
     // FUNCTIONS
     const isChecked = (order) => {
-        return ordersGenerateRoute.some(
-            (orderData) => orderData?.id === order.id
+        return (
+            ordersDelivery.some((orderData) => orderData?.id === order.id) &&
+            ordersDeliveryAddress.some(
+                (orderData) => orderData?.id === order.Address.id
+            )
         );
     };
 
     const handleGenerateRoute = (checked, order) => {
         if (checked) {
-            setOrdersGenerateRoute([...ordersGenerateRoute, order]);
+            setOrdersDelivery([...ordersDelivery, order]);
+            setOrdersDeliveryAddress([
+                ...ordersDeliveryAddress,
+                order?.Address,
+            ]);
         } else {
-            setOrdersGenerateRoute(
-                ordersGenerateRoute.filter(
-                    (orderData) => orderData.id !== order.id
+            setOrdersDelivery(
+                ordersDelivery.filter((orderData) => orderData.id !== order.id)
+            );
+            setOrdersDeliveryAddress(
+                ordersDeliveryAddress.filter(
+                    (orderData) => orderData?.id !== order?.Address?.id
                 )
             );
         }
@@ -110,6 +123,14 @@ export default function OrdersDelivery() {
 
     const onCloseGenerateRoute = () => {
         setOpenGenerateRoute(false);
+    };
+
+    const onOpenChangeStates = () => {
+        setOpenChangeStates(true);
+    };
+
+    const onCloseChangeStates = () => {
+        setOpenChangeStates(false);
     };
 
     // RESPONSIVE
@@ -131,7 +152,7 @@ export default function OrdersDelivery() {
                 </p>
 
                 {loading ? (
-                    <div className="orders-spinner">
+                    <div className="spinner">
                         <Spinner />
                     </div>
                 ) : (
@@ -152,9 +173,11 @@ export default function OrdersDelivery() {
                                 setEndDate={setEndDate}
                                 handleFilterDate={handleFilterDate}
                                 isChecked={isChecked}
-                                ordersGenerateRoute={ordersGenerateRoute}
+                                ordersDelivery={ordersDelivery}
+                                ordersDeliveryAddress={ordersDeliveryAddress}
                                 handleGenerateRoute={handleGenerateRoute}
                                 onOpenGenerateRoute={onOpenGenerateRoute}
+                                onOpenChangeStates={onOpenChangeStates}
                             />
                         ) : (
                             <TableMobile
@@ -171,9 +194,10 @@ export default function OrdersDelivery() {
                                 endDate={endDate}
                                 setEndDate={setEndDate}
                                 handleFilterDate={handleFilterDate}
-                                ordersGenerateRoute={ordersGenerateRoute}
+                                ordersDeliveryAddress={ordersDeliveryAddress}
                                 handleGenerateRoute={handleGenerateRoute}
                                 onOpenGenerateRoute={onOpenGenerateRoute}
+                                isChecked={isChecked}
                             />
                         )}
 
@@ -191,7 +215,13 @@ export default function OrdersDelivery() {
             <GenerateRouteModal
                 openGenerateRoute={openGenerateRoute}
                 onCloseGenerateRoute={onCloseGenerateRoute}
-                ordersGenerateRoute={ordersGenerateRoute}
+                ordersDeliveryAddress={ordersDeliveryAddress}
+            />
+            <ChangeStateOrders
+                openChangeStates={openChangeStates}
+                onCloseChangeStates={onCloseChangeStates}
+                ordersDelivery={ordersDelivery}
+                statuses={getStatuses()}
             />
         </>
     );

@@ -8,7 +8,8 @@ import {
 
 // ICONS
 import { MdCancel } from "react-icons/md";
-import { FaEye, FaCheckCircle } from "react-icons/fa";
+import { FaEye, FaCheckCircle, FaExchangeAlt } from "react-icons/fa";
+import { FiMapPin } from "react-icons/fi";
 import { BsCalendar2Date, BsFillCalendar2DateFill } from "react-icons/bs";
 import { TbTruckDelivery, TbMapShare } from "react-icons/tb";
 
@@ -39,8 +40,10 @@ export default function Table({
     onOpenShowOrderModal,
     onOpenAssingDeliveryModal,
     onOpenGenerateRoute,
-    ordersGenerateRoute,
+    ordersDeliveryAddress,
+    ordersDelivery,
     handleGenerateRoute,
+    onOpenChangeStates,
 }) {
     // ZUSTAND
     const { canExecute } = useLoginStore();
@@ -62,15 +65,26 @@ export default function Table({
                                 href="/order-map"
                                 className="button list-button-table list-button-icon"
                             >
-                                <TbMapShare className="list-button-table-icon-big" />
+                                <TbMapShare className="list-button-table-icon-big" />{" "}
+                                Ver Mapa
                             </a>
                         ) : null}
-                        {ordersGenerateRoute?.length > 0 ? (
+                        {ordersDeliveryAddress?.length > 0 ? (
                             <button
                                 onClick={() => onOpenGenerateRoute()}
                                 className="button list-button-table list-button-icon"
                             >
-                                <TbTruckDelivery className="list-button-table-icon-big" />
+                                <TbTruckDelivery className="list-button-table-icon-big" />{" "}
+                                Generar Mapa
+                            </button>
+                        ) : null}
+                        {ordersDelivery?.length > 0 ? (
+                            <button
+                                onClick={() => onOpenChangeStates()}
+                                className="button list-button-table list-button-icon"
+                            >
+                                <FaExchangeAlt className="list-button-table-icon-big" />{" "}
+                                Cambiar estado
                             </button>
                         ) : null}
                         {!advancedDates ? (
@@ -183,15 +197,21 @@ export default function Table({
                         </thead>
                         <tbody>
                             {orders.map((order, index) => (
-                                <tr
-                                    className={`${
-                                        isMapInclude(order?.Address?.id)
-                                            ? "list-table-active"
-                                            : ""
-                                    }`}
-                                    key={index}
-                                >
-                                    <td>{order?.id}</td>
+                                <tr key={index}>
+                                    <td>
+                                        <div className="list-table-pines">
+                                            {isMapInclude(
+                                                order?.Address?.id
+                                            ) ? (
+                                                <FiMapPin
+                                                    className="list-table-pin"
+                                                    fontSize={20}
+                                                />
+                                            ) : null}
+
+                                            {order?.id}
+                                        </div>
+                                    </td>
                                     <td>{formatDate(order?.createdAt)}</td>
                                     <td>{order?.amount}</td>
                                     <td>{formatPrice(order?.totalPrice)}</td>
@@ -201,7 +221,7 @@ export default function Table({
                                     </td>
                                     <td>
                                         <span
-                                            className={`order-status ${formatStatusColor(
+                                            className={`order-status order-status-table ${formatStatusColor(
                                                 order?.status
                                             )}`}
                                         >
@@ -270,13 +290,11 @@ export default function Table({
                                                 className="list-checkbox"
                                                 type="checkbox"
                                                 id={order?.id}
-                                                checked={isChecked(
-                                                    order.Address
-                                                )}
+                                                checked={isChecked(order)}
                                                 onChange={(e) =>
                                                     handleGenerateRoute(
                                                         e.target.checked,
-                                                        order.Address
+                                                        order
                                                     )
                                                 }
                                             />

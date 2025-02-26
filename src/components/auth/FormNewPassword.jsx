@@ -156,7 +156,7 @@ export default function FormNewPassword() {
                 </form>
             )}
 
-            <div className="form-spinner">{success ? <Spinner /> : null}</div>
+            <div className="spinner">{success ? <Spinner /> : null}</div>
         </>
     );
 }

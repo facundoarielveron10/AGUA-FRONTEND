@@ -9,7 +9,7 @@ import {
 // ICONS
 import { MdCancel } from "react-icons/md";
 import { FaEye, FaCheckCircle } from "react-icons/fa";
-import { TbTruckDelivery } from "react-icons/tb";
+import { TbMapShare, TbTruckDelivery } from "react-icons/tb";
 import { BsCalendar2Date, BsFillCalendar2DateFill } from "react-icons/bs";
 
 // COMPONENTS
@@ -17,6 +17,7 @@ import DatePicker from "react-datepicker";
 
 // ZUSTAND
 import { useLoginStore } from "../../zustand/loginStore";
+import { useDeliveryStore } from "src/zustand/deliveryStore";
 
 export default function TableMobile({
     orders,
@@ -36,7 +37,20 @@ export default function TableMobile({
     onOpenConfirmOrderModal,
     onOpenShowOrderModal,
     onOpenAssingDeliveryModal,
+    handleGenerateRoute,
+    isChecked,
+    onOpenGenerateRoute,
+    ordersGenerateRoute,
 }) {
+    // ZUSTAND
+    const { canExecute } = useLoginStore();
+    const { route, orders: ordersMap } = useDeliveryStore();
+
+    // FUNCTIONS
+    const isMapInclude = (orderId) => {
+        return ordersMap.some((orderMap) => orderMap?.id === orderId);
+    };
+
     return (
         <div className="list-mobile-container">
             <div className="list-mobile-header">
@@ -132,6 +146,28 @@ export default function TableMobile({
                             </div>
                         </div>
                     ) : null}
+                    {route?.length > 0 && canExecute("GET_ORDER_MAP") ? (
+                        <div className="list-mobile-maps">
+                            <a
+                                href="/order-map"
+                                className="button list-button-table list-button-icon"
+                            >
+                                <TbMapShare className="list-button-table-icon-big" />{" "}
+                                Ver mapa
+                            </a>
+                        </div>
+                    ) : null}
+                    {ordersGenerateRoute?.length > 0 ? (
+                        <div className="list-mobile-maps">
+                            <button
+                                onClick={() => onOpenGenerateRoute()}
+                                className="button list-button-table list-button-icon"
+                            >
+                                <TbTruckDelivery className="list-button-table-icon-big" />{" "}
+                                Generar Mapa
+                            </button>
+                        </div>
+                    ) : null}
                 </div>
             </div>
             <div className="list-mobile">
@@ -146,6 +182,9 @@ export default function TableMobile({
                             onOpenAssingDeliveryModal={
                                 onOpenAssingDeliveryModal
                             }
+                            handleGenerateRoute={handleGenerateRoute}
+                            isChecked={isChecked}
+                            isMapInclude={isMapInclude}
                         />
                     ))
                 ) : (
@@ -164,12 +203,19 @@ function OrderCard({
     onOpenAssingDeliveryModal,
     onOpenConfirmOrderModal,
     onOpenShowOrderModal,
+    handleGenerateRoute,
+    isChecked,
+    isMapInclude,
 }) {
     // ZUSTAND
     const { canExecute } = useLoginStore();
 
     return (
-        <div className="list-mobile-fields">
+        <div
+            className={`${
+                isMapInclude(order?.Address?.id) ? "list-mobile-active" : ""
+            } list-mobile-fields`}
+        >
             <div className="list-mobile-field">
                 <span className="list-mobile-label">Numero:</span>
                 <span className="list-mobile-value">{order?.id}</span>
@@ -250,6 +296,20 @@ function OrderCard({
                         >
                             <FaEye className="list-button-table-icon-big" />
                         </button>
+                    ) : null}
+                    {canExecute("GENERATE_ROUTE") ? (
+                        <input
+                            className="list-checkbox"
+                            type="checkbox"
+                            id={order?.id}
+                            checked={isChecked(order.Address)}
+                            onChange={(e) =>
+                                handleGenerateRoute(
+                                    e.target.checked,
+                                    order.Address
+                                )
+                            }
+                        />
                     ) : null}
                 </div>
             </div>

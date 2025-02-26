@@ -98,7 +98,7 @@ export default function Roles() {
                     partida del Repartidor
                 </p>
                 {loading ? (
-                    <div className="addressDelivery-spinner">
+                    <div className="spinner">
                         <Spinner />
                     </div>
                 ) : isDesktop ? (

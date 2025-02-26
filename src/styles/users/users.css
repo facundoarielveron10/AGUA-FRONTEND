@@ -35,10 +35,3 @@
     margin: 0 2rem 2rem 0;
     text-decoration: none;
 }
-
-.users-spinner {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}

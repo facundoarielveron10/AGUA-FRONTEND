@@ -199,7 +199,7 @@ export default function OrdersAdmin() {
                 </p>
 
                 {loading ? (
-                    <div className="orders-spinner">
+                    <div className="spinner">
                         <Spinner />
                     </div>
                 ) : (

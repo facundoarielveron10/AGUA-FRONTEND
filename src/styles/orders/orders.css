@@ -36,11 +36,14 @@
     text-decoration: none;
 }
 
-.orders-spinner {
+.order-address {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-transform: uppercase;
+    color: var(--textColor);
+    font-weight: bold;
 }
 
 .order-status {
@@ -51,30 +54,65 @@
     font-weight: bold;
     color: #fff;
     padding: 0.2rem 0.5rem;
-    border-radius: 8px;
+    border-radius: 5px;
+}
+
+.order-status-table {
+    width: 100%;
 }
 
 .order-pending {
     background-color: #ffa500;
+    transition: all 300ms;
+}
+
+.order-pending:hover {
+    background-color: #e19302;
 }
 
 .order-road {
     background-color: #1d30da;
+    transition: all 300ms;
+}
+
+.order-road:hover {
+    background-color: #0316c1;
 }
 
 .order-delivered {
     background-color: #04eb04;
+    transition: all 300ms;
+}
+
+.order-delivered:hover {
+    background-color: #05c905;
 }
 
 .order-confirmed {
     background-color: #0ac30a;
+    transition: all 300ms;
+}
+
+.order-confirmed:hover {
+    background-color: #0ba00b;
 }
 
 .order-unknown,
 .order-cancelled {
     background-color: #ff0000;
+    transition: all 300ms;
+}
+
+.order-unknown:hover,
+.order-cancelled:hover {
+    background-color: #c40606;
 }
 
 .order-waiting {
     background-color: #595959;
+    transition: all 300ms;
+}
+
+.order-waiting:hover {
+    background-color: #3f3f3f;
 }

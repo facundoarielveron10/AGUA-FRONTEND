@@ -22,7 +22,7 @@ import Spinner from "../Spinner";
 export default function GenerateRouteModal({
     openGenerateRoute,
     onCloseGenerateRoute,
-    ordersGenerateRoute,
+    ordersDeliveryAddress,
 }) {
     // STATES
     const [loading, setLoading] = useState(false);
@@ -36,7 +36,10 @@ export default function GenerateRouteModal({
     const generateRouteData = async () => {
         try {
             setLoading(true);
-            const data = await generateRoute(ordersGenerateRoute, addressStart);
+            const data = await generateRoute(
+                ordersDeliveryAddress,
+                addressStart
+            );
 
             if (data) {
                 toast.error(data);
@@ -86,7 +89,7 @@ export default function GenerateRouteModal({
                 <div>
                     <h2 className="modal-title">Generar Ruta más Óptima</h2>
                     {loading ? (
-                        <div className="modal-spinner">
+                        <div className="spinner">
                             <Spinner />
                         </div>
                     ) : (
@@ -121,7 +124,7 @@ export default function GenerateRouteModal({
                             </select>
                             <h3 className="modal-title">Pedidos</h3>
                             <div className="modal-orders">
-                                {ordersGenerateRoute.map((order, index) => (
+                                {ordersDeliveryAddress.map((order, index) => (
                                     <div className="modal-order" key={index}>
                                         <p>
                                             <span>Direccion:</span>{" "}

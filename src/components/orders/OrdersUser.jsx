@@ -115,7 +115,7 @@ export default function OrdersUser() {
                 </p>
 
                 {loading ? (
-                    <div className="orders-spinner">
+                    <div className="spinner">
                         <Spinner />
                     </div>
                 ) : (

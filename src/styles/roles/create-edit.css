@@ -59,13 +59,6 @@
     border-color: var(--primaryDarkColor);
 }
 
-.createEditRole-spinner {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
 .createEditRole-actions {
     display: flex;
     flex-direction: column;

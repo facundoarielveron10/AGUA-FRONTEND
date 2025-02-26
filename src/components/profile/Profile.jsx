@@ -14,6 +14,7 @@ import Alert from "../Alert.jsx";
 
 // ZUSTAND
 import { useLoginStore } from "../../zustand/loginStore.js";
+import Spinner from "../Spinner.jsx";
 
 export default function Profile() {
     // STATES
@@ -23,6 +24,7 @@ export default function Profile() {
     const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
     const [userData, setUserData] = useState({});
+    const [loading, setLoading] = useState(false);
 
     // ZUSTAND
     const { user } = useLoginStore();
@@ -58,6 +60,7 @@ export default function Profile() {
         }
 
         try {
+            setLoading(true);
             const { data } = await clientAxios.post("/user/edit-user", {
                 userId: user?.id,
                 name,
@@ -73,11 +76,14 @@ export default function Profile() {
             await getUser();
         } catch (error) {
             toast.error(errorResponse(error));
+        } finally {
+            setLoading(true);
         }
     };
 
     const getUser = async () => {
         try {
+            setLoading(true);
             const { data } = await clientAxios.get(`/user/user/${user?.id}`);
 
             setUserData(data);
@@ -86,6 +92,8 @@ export default function Profile() {
             setEmail(data?.email);
         } catch (error) {
             toast.error(errorResponse(error));
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -104,81 +112,91 @@ export default function Profile() {
                     perfil, donde podemos cambiar los datos de nombre, apellido,
                     email y contraseña.
                 </p>
+                {loading ? (
+                    <div className="spinner">
+                        <Spinner />
+                    </div>
+                ) : (
+                    <form className="form" onSubmit={handleSubmit}>
+                        {/* NAME */}
+                        <div className="form-group">
+                            <label className="form-label" htmlFor="name">
+                                Nombre
+                            </label>
+                            <input
+                                className="form-input"
+                                type="text"
+                                id="name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                        </div>
+                        {/* LASTNAME */}
+                        <div className="form-group">
+                            <label className="form-label" htmlFor="lastname">
+                                Apellido
+                            </label>
+                            <input
+                                className="form-input"
+                                type="text"
+                                id="lastname"
+                                value={lastname}
+                                onChange={(e) => setLastname(e.target.value)}
+                            />
+                        </div>
+                        {/* EMAIL */}
+                        <div className="form-group">
+                            <label className="form-label" htmlFor="email">
+                                Email
+                            </label>
+                            <input
+                                className="form-input"
+                                type="text"
+                                id="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </div>
+                        {/* PASSWORD */}
+                        <div className="form-group">
+                            <label className="form-label" htmlFor="password">
+                                Contraseña
+                            </label>
+                            <input
+                                className="form-input"
+                                type="password"
+                                id="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </div>
+                        {/* PASSWORD CONFIRM */}
+                        <div className="form-group">
+                            <label
+                                className="form-label"
+                                htmlFor="passwordConfirm"
+                            >
+                                Repetir Contraseña
+                            </label>
+                            <input
+                                className="form-input"
+                                type="password"
+                                id="passwordConfirm"
+                                value={passwordConfirm}
+                                onChange={(e) =>
+                                    setPasswordConfirm(e.target.value)
+                                }
+                            />
+                        </div>
 
-                <form className="form" onSubmit={handleSubmit}>
-                    {/* NAME */}
-                    <div className="form-group">
-                        <label className="form-label" htmlFor="name">
-                            Nombre
-                        </label>
-                        <input
-                            className="form-input"
-                            type="text"
-                            id="name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                        />
-                    </div>
-                    {/* LASTNAME */}
-                    <div className="form-group">
-                        <label className="form-label" htmlFor="lastname">
-                            Apellido
-                        </label>
-                        <input
-                            className="form-input"
-                            type="text"
-                            id="lastname"
-                            value={lastname}
-                            onChange={(e) => setLastname(e.target.value)}
-                        />
-                    </div>
-                    {/* EMAIL */}
-                    <div className="form-group">
-                        <label className="form-label" htmlFor="email">
-                            Email
-                        </label>
-                        <input
-                            className="form-input"
-                            type="text"
-                            id="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </div>
-                    {/* PASSWORD */}
-                    <div className="form-group">
-                        <label className="form-label" htmlFor="password">
-                            Contraseña
-                        </label>
-                        <input
-                            className="form-input"
-                            type="password"
-                            id="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </div>
-                    {/* PASSWORD CONFIRM */}
-                    <div className="form-group">
-                        <label className="form-label" htmlFor="passwordConfirm">
-                            Repetir Contraseña
-                        </label>
-                        <input
-                            className="form-input"
-                            type="password"
-                            id="passwordConfirm"
-                            value={passwordConfirm}
-                            onChange={(e) => setPasswordConfirm(e.target.value)}
-                        />
-                    </div>
-
-                    <button
-                        className="profile-button form-submit button"
-                        type="submit"
-                    >
-                        Editar Perfil
-                    </button>
-                </form>
+                        <button
+                            className="profile-button form-submit button"
+                            type="submit"
+                        >
+                            Editar Perfil
+                        </button>
+                    </form>
+                )}
             </div>
         </>
     );

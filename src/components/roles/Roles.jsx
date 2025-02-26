@@ -111,7 +111,7 @@ export default function Roles() {
                     el sistema, donde tambien se puede crear nuevos roles
                 </p>
                 {roles.length === 0 ? (
-                    <div className="roles-spinner">
+                    <div className="spinner">
                         <Spinner />
                     </div>
                 ) : isDesktop ? (

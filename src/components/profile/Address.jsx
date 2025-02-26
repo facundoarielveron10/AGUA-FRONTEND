@@ -33,6 +33,8 @@ export default function Address() {
     const [modalCreateAddress, setModalCreateAddress] = useState(false);
     const [modalEditAddress, setModalEditAddress] = useState(false);
     const [modalDeleteAddress, setModalDeleteAddress] = useState(false);
+    const [loading, setLoading] = useState(false);
+
     // ZUSTAND
     const { user, canExecute } = useLoginStore();
 

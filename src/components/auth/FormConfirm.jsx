@@ -79,7 +79,7 @@ export default function FormLogin() {
                     Confirmar Cuenta
                 </button>
             </form>
-            <div className="form-spinner">{success ? <Spinner /> : null}</div>
+            <div className="spinner">{success ? <Spinner /> : null}</div>
         </>
     );
 }

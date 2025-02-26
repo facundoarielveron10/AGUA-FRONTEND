@@ -15,6 +15,9 @@ import Alert from "../Alert.jsx";
 // ZUSTAND
 import { useLoginStore } from "../../zustand/loginStore.js";
 
+// COMPONENTS
+import Spinner from "../Spinner.jsx";
+
 export default function Edit({ id }) {
     // STATES
     const [name, setName] = useState("");
@@ -25,6 +28,7 @@ export default function Edit({ id }) {
     const [role, setRole] = useState("");
     const [roles, setRoles] = useState([]);
     const [userData, setUserData] = useState({});
+    const [loading, setLoading] = useState(false);
 
     // ZUSTAND
     const { user, logout } = useLoginStore();
@@ -61,6 +65,7 @@ export default function Edit({ id }) {
         }
 
         try {
+            setLoading(true);
             const { data } = await clientAxios.post("/user/edit-user", {
                 userId: id,
                 name,
@@ -81,11 +86,14 @@ export default function Edit({ id }) {
             await getUser();
         } catch (error) {
             toast.error(errorResponse(error));
+        } finally {
+            setLoading(false);
         }
     };
 
     const getUser = async () => {
         try {
+            setLoading(true);
             const { data } = await clientAxios.get(`/user/user/${id}`);
 
             setUserData(data);
@@ -95,6 +103,8 @@ export default function Edit({ id }) {
             setRole(data?.Role?.name);
         } catch (error) {
             toast.error(errorResponse(error));
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -120,111 +130,124 @@ export default function Edit({ id }) {
                     usuario, donde podemos cambiar los datos de nombre,
                     apellido, email, contraseña y rol del usuario.
                 </p>
-
-                <form className="form" onSubmit={handleSubmit}>
-                    {/* NAME */}
-                    <div className="form-group">
-                        <label className="form-label" htmlFor="name">
-                            Nombre
-                        </label>
-                        <input
-                            className="form-input"
-                            type="text"
-                            id="name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                        />
+                {loading ? (
+                    <div className="spinner">
+                        <Spinner />
                     </div>
-                    {/* LASTNAME */}
-                    <div className="form-group">
-                        <label className="form-label" htmlFor="lastname">
-                            Apellido
-                        </label>
-                        <input
-                            className="form-input"
-                            type="text"
-                            id="lastname"
-                            value={lastname}
-                            onChange={(e) => setLastname(e.target.value)}
-                        />
-                    </div>
-                    {/* EMAIL */}
-                    <div className="form-group">
-                        <label className="form-label" htmlFor="email">
-                            Email
-                        </label>
-                        <input
-                            className="form-input"
-                            type="text"
-                            id="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </div>
-                    {/* PASSWORD */}
-                    <div className="form-group">
-                        <label className="form-label" htmlFor="password">
-                            Contraseña
-                        </label>
-                        <input
-                            className="form-input"
-                            type="password"
-                            id="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </div>
-                    {/* PASSWORD CONFIRM */}
-                    <div className="form-group">
-                        <label className="form-label" htmlFor="passwordConfirm">
-                            Repetir Contraseña
-                        </label>
-                        <input
-                            className="form-input"
-                            type="password"
-                            id="passwordConfirm"
-                            value={passwordConfirm}
-                            onChange={(e) => setPasswordConfirm(e.target.value)}
-                        />
-                    </div>
-                    {/* ROL DEL USUARIO */}
-                    <div className="form-group createEditUser-select">
-                        <label className="form-label" htmlFor="passwordConfirm">
-                            Rol del usuario
-                        </label>
-                        <select
-                            className="form-input"
-                            value={role}
-                            onChange={(e) => setRole(e.target.value)}
-                        >
-                            <option
-                                disabled
-                                className="createEditUser-option"
-                                value=""
+                ) : (
+                    <form className="form" onSubmit={handleSubmit}>
+                        {/* NAME */}
+                        <div className="form-group">
+                            <label className="form-label" htmlFor="name">
+                                Nombre
+                            </label>
+                            <input
+                                className="form-input"
+                                type="text"
+                                id="name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                        </div>
+                        {/* LASTNAME */}
+                        <div className="form-group">
+                            <label className="form-label" htmlFor="lastname">
+                                Apellido
+                            </label>
+                            <input
+                                className="form-input"
+                                type="text"
+                                id="lastname"
+                                value={lastname}
+                                onChange={(e) => setLastname(e.target.value)}
+                            />
+                        </div>
+                        {/* EMAIL */}
+                        <div className="form-group">
+                            <label className="form-label" htmlFor="email">
+                                Email
+                            </label>
+                            <input
+                                className="form-input"
+                                type="text"
+                                id="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </div>
+                        {/* PASSWORD */}
+                        <div className="form-group">
+                            <label className="form-label" htmlFor="password">
+                                Contraseña
+                            </label>
+                            <input
+                                className="form-input"
+                                type="password"
+                                id="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </div>
+                        {/* PASSWORD CONFIRM */}
+                        <div className="form-group">
+                            <label
+                                className="form-label"
+                                htmlFor="passwordConfirm"
                             >
-                                Seleccionar Rol
-                            </option>
-                            {roles.length > 0
-                                ? roles.map((rol) => (
-                                      <option
-                                          key={rol?.id}
-                                          className="createEditUser-option"
-                                          value={rol?.name}
-                                      >
-                                          {rol?.nameDescriptive}
-                                      </option>
-                                  ))
-                                : null}
-                        </select>
-                    </div>
+                                Repetir Contraseña
+                            </label>
+                            <input
+                                className="form-input"
+                                type="password"
+                                id="passwordConfirm"
+                                value={passwordConfirm}
+                                onChange={(e) =>
+                                    setPasswordConfirm(e.target.value)
+                                }
+                            />
+                        </div>
+                        {/* ROL DEL USUARIO */}
+                        <div className="form-group createEditUser-select">
+                            <label
+                                className="form-label"
+                                htmlFor="passwordConfirm"
+                            >
+                                Rol del usuario
+                            </label>
+                            <select
+                                className="form-input"
+                                value={role}
+                                onChange={(e) => setRole(e.target.value)}
+                            >
+                                <option
+                                    disabled
+                                    className="createEditUser-option"
+                                    value=""
+                                >
+                                    Seleccionar Rol
+                                </option>
+                                {roles.length > 0
+                                    ? roles.map((rol) => (
+                                          <option
+                                              key={rol?.id}
+                                              className="createEditUser-option"
+                                              value={rol?.name}
+                                          >
+                                              {rol?.nameDescriptive}
+                                          </option>
+                                      ))
+                                    : null}
+                            </select>
+                        </div>
 
-                    <button
-                        className="createEditUser-button form-submit button"
-                        type="submit"
-                    >
-                        Editar usuario
-                    </button>
-                </form>
+                        <button
+                            className="createEditUser-button form-submit button"
+                            type="submit"
+                        >
+                            Editar usuario
+                        </button>
+                    </form>
+                )}
             </div>
         </>
     );

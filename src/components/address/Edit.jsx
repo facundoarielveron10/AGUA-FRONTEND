@@ -93,7 +93,7 @@ export default function Edit({ id }) {
                     pais.
                 </p>
                 {loading ? (
-                    <div className="form-spinner">
+                    <div className="spinner">
                         <Spinner />
                     </div>
                 ) : (

@@ -9,6 +9,7 @@ import { useLoginStore } from "../../zustand/loginStore";
 
 // ICON
 import { CiLogout } from "react-icons/ci";
+import { FaUser } from "react-icons/fa";
 
 export default function NavbarMobile({ url }) {
     // STATE
@@ -63,20 +64,6 @@ export default function NavbarMobile({ url }) {
                                 </a>
                             </li>
                         ) : null}
-                        {canExecute("GET_USERS") ? (
-                            <li>
-                                <a
-                                    className={`${
-                                        url === "/users"
-                                            ? "navbar-link-active"
-                                            : ""
-                                    }`}
-                                    href="/users"
-                                >
-                                    Usuarios
-                                </a>
-                            </li>
-                        ) : null}
                         {canExecute("GET_ROLES") ? (
                             <li>
                                 <a
@@ -91,6 +78,48 @@ export default function NavbarMobile({ url }) {
                                 </a>
                             </li>
                         ) : null}
+                        {canExecute("GET_USERS") ? (
+                            <li>
+                                <a
+                                    className={`${
+                                        url === "/users"
+                                            ? "navbar-link-active"
+                                            : ""
+                                    }`}
+                                    href="/users"
+                                >
+                                    Usuarios
+                                </a>
+                            </li>
+                        ) : null}
+                        {canExecute("GET_ADDRESS_DELIVERY") && (
+                            <li>
+                                <a
+                                    className={`${
+                                        url === "/address"
+                                            ? "navbar-link-active"
+                                            : ""
+                                    }`}
+                                    href="/address"
+                                >
+                                    Direcciones
+                                </a>
+                            </li>
+                        )}
+                        {canExecute("GET_PROFILE") && (
+                            <li>
+                                <a
+                                    className={`${
+                                        url === "/profile"
+                                            ? "navbar-link-active"
+                                            : ""
+                                    }`}
+                                    href="/profile"
+                                >
+                                    <FaUser className="navbar-profile" />
+                                </a>
+                            </li>
+                        )}
                         <li>
                             <button
                                 className="navbarMobile-logout"

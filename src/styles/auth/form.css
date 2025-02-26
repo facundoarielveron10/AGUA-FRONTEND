@@ -8,7 +8,6 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     background-color: var(--backgroundCard);
     color: var(--textColor);
-    width: 100%;
     margin: 0 1rem;
 }
 
@@ -118,14 +117,6 @@
     text-transform: uppercase;
     font-weight: bold;
     font-size: 0.9rem;
-}
-
-.form-spinner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 2rem;
 }
 
 .form-logo {

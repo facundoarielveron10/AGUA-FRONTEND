@@ -202,7 +202,7 @@ export default function Create() {
                         </select>
                     </div>
                     {actions.length === 0 || loading ? (
-                        <div className="createEditRole-spinner">
+                        <div className="spinner">
                             <Spinner />
                         </div>
                     ) : (

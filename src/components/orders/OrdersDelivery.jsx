@@ -194,10 +194,12 @@ export default function OrdersDelivery() {
                                 endDate={endDate}
                                 setEndDate={setEndDate}
                                 handleFilterDate={handleFilterDate}
+                                ordersDelivery={ordersDelivery}
                                 ordersDeliveryAddress={ordersDeliveryAddress}
                                 handleGenerateRoute={handleGenerateRoute}
                                 onOpenGenerateRoute={onOpenGenerateRoute}
                                 isChecked={isChecked}
+                                onOpenChangeStates={onOpenChangeStates}
                             />
                         )}
 

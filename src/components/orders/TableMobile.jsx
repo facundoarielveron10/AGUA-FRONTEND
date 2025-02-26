@@ -8,7 +8,7 @@ import {
 
 // ICONS
 import { MdCancel } from "react-icons/md";
-import { FaEye, FaCheckCircle } from "react-icons/fa";
+import { FaEye, FaCheckCircle, FaExchangeAlt } from "react-icons/fa";
 import { TbMapShare, TbTruckDelivery } from "react-icons/tb";
 import { BsCalendar2Date, BsFillCalendar2DateFill } from "react-icons/bs";
 
@@ -40,7 +40,9 @@ export default function TableMobile({
     handleGenerateRoute,
     isChecked,
     onOpenGenerateRoute,
-    ordersGenerateRoute,
+    ordersDelivery,
+    ordersDeliveryAddress,
+    onOpenChangeStates,
 }) {
     // ZUSTAND
     const { canExecute } = useLoginStore();
@@ -157,7 +159,7 @@ export default function TableMobile({
                             </a>
                         </div>
                     ) : null}
-                    {ordersGenerateRoute?.length > 0 ? (
+                    {ordersDeliveryAddress?.length > 0 ? (
                         <div className="list-mobile-maps">
                             <button
                                 onClick={() => onOpenGenerateRoute()}
@@ -165,6 +167,17 @@ export default function TableMobile({
                             >
                                 <TbTruckDelivery className="list-button-table-icon-big" />{" "}
                                 Generar Mapa
+                            </button>
+                        </div>
+                    ) : null}
+                    {ordersDelivery?.length > 0 ? (
+                        <div className="list-mobile-maps">
+                            <button
+                                onClick={() => onOpenChangeStates()}
+                                className="button list-button-table list-button-icon"
+                            >
+                                <FaExchangeAlt className="list-button-table-icon-big" />{" "}
+                                Cambiar estado
                             </button>
                         </div>
                     ) : null}
@@ -302,12 +315,9 @@ function OrderCard({
                             className="list-checkbox"
                             type="checkbox"
                             id={order?.id}
-                            checked={isChecked(order.Address)}
+                            checked={isChecked(order)}
                             onChange={(e) =>
-                                handleGenerateRoute(
-                                    e.target.checked,
-                                    order.Address
-                                )
+                                handleGenerateRoute(e.target.checked, order)
                             }
                         />
                     ) : null}
